@@ -35,6 +35,13 @@
 #       5. Student t-distribution
 #          a) Used when population size is small and normally distributed
 #          b) Used when s.d. is unknown.
+#          c) Makes sense that it is difference between expected distribution - experimental
+#             distribution divided by stdev_of_mean
+#             Basically, interpret as 
+#               "how far is the experimental distribution away from the
+#                expected distribution of means"
+#             t = (sampMean - \mu) / (\sigma / sqrt(N))
+#
 #       6. Choose significance p-value _before_ experiment
 #       7. Intuition on dealing with p-value when comparing two normal distributions
 #       8. 1. Standard deviation of the mean : \sigma / sqrt(N)
@@ -92,19 +99,19 @@ def main():
 
     ### Create the population distributions, draw our experimental samples from these ###
     # Population / Dist 1
-    mu1 = 0     ### average
-    sd1 = 1     ### standard dev
-    N1  = 1000  ### Number of samples 
+    pop1_mu = 0         ### average
+    pop1_sd = 1         ### standard dev
+    N1  = 100000    ### Number of samples 
     pop1V = np.zeros([N1])
     for i in range(N1):
-        pop1V[i] = random.gauss(mu1, sd1)
+        pop1V[i] = random.gauss(pop1_mu, pop1_sd)
     # Population / Dist 2
-    mu2 = 1
-    sd2 = 1
-    N2  = 1000   ### Number of samples 
+    pop2_mu = 0.5
+    pop2_sd = 1
+    N2  = 100000    ### Number of samples 
     pop2V = np.zeros([N2])
     for i in range(N2):
-        pop2V[i] = random.gauss(mu2, sd2)
+        pop2V[i] = random.gauss(pop2_mu, pop2_sd)
 
     ### 
     #  Explore Standard deviation of the mean : \sigma / sqrt(N)
@@ -142,14 +149,30 @@ def main():
     
 
 
+    ##############################################
     ### Calculate distributions ###
     ### Take distribution 1 as the Wild Type or standard or null hypothesis ###   
     ### We want to reject the Null Hypothesis, which is mu1 ###
-    t = (np.mean(pop2V) - mu1) / (sd2 / np.sqrt(N2))
+    ### Use the Independent two sample t-test ###
+    ###     ASSUMPTIONS : 
+    ###         1. samples are equal in size
+    ###         2. both groups (underlying populations) have same vairance
+    ##############################################
+    #t = (np.mean(pop2V) - mu1) / (sd2 / np.sqrt(N2))
+    samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
+    samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
+    s1    = np.std(samp1)
+    s2    = np.std(samp2)
+    mu1   = np.mean(samp1)
+    mu2   = np.mean(samp2)
+    sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
+    t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
 
-    print("t = {:<.3f}\nmean2 = {:<.3f}\nstd_dev2 = {:<.3f}\n".format(t,
-           np.mean(pop2V), np.std(pop2V)))
-    
+    print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
+          "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
+           pop1_mu, pop1_sd,pop2_mu, pop2_sd))
+    print("    Samp1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
+          "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
     
 
 
