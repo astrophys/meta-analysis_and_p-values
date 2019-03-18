@@ -48,8 +48,8 @@
 #          Per : https://en.wikipedia.org/wiki/Standard_error#Standard_error_of_the_mean
 #          "the standard error of the mean is a measure of the dispersion of sample
 #          means around the population mean"
-#
-#
+#       9. Use two sided t-test per 
+#          https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-what-are-the-differences-between-one-tailed-and-two-tailed-tests/
 #
 #
 #
@@ -61,6 +61,7 @@ import sys
 from error import exit_with_error
 import matplotlib
 import random
+from functions import convert_tscore_to_pvalue
 
 def print_help(ExitCode):
     """
@@ -95,6 +96,7 @@ def main():
         print_help(ExitCode=0)
     elif(len(sys.argv) != 1):
         print_help(ExitCode=1)
+    np.random.seed(42)
     random.seed(42)
 
     ### Create the population distributions, draw our experimental samples from these ###
@@ -106,7 +108,7 @@ def main():
     for i in range(N1):
         pop1V[i] = random.gauss(pop1_mu, pop1_sd)
     # Population / Dist 2
-    pop2_mu = 0.5
+    pop2_mu = 1
     pop2_sd = 1
     N2  = 100000    ### Number of samples 
     pop2V = np.zeros([N2])
@@ -159,6 +161,7 @@ def main():
     ###         2. both groups (underlying populations) have same vairance
     ##############################################
     #t = (np.mean(pop2V) - mu1) / (sd2 / np.sqrt(N2))
+    nSamp = N1
     samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
     samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
     s1    = np.std(samp1)
@@ -167,13 +170,32 @@ def main():
     mu2   = np.mean(samp2)
     sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
     t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
-
+    print("---------------------------------------------------------")
+    print("t-score using entire distribution N1 {} and N2 {}".format(N1,N2))
     print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
           "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
            pop1_mu, pop1_sd,pop2_mu, pop2_sd))
     print("    Samp1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
           "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
     
+    ### Let's now look at the distribution of t-scores ###
+    tL = []
+    nSamp = 20
+    nExp  = 500
+    for i in range(nExp):
+        samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
+        samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
+        s1    = np.std(samp1)
+        s2    = np.std(samp2)
+        mu1   = np.mean(samp1)
+        mu2   = np.mean(samp2)
+        sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
+        t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
+        tL.append(t)
+    print("\n---------------------------------------------------------")
+    print("mean(t) +/- std(t) = {:<.3f} +/- {:<.3f}\n".format(np.mean(tL), np.std(tL)))
+
+    print(convert_tscore_to_pvalue(2.0))
 
 
 if __name__ == "__main__":
