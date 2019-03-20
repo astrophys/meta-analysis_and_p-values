@@ -179,23 +179,26 @@ def main():
           "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
     
     ### Let's now look at the distribution of t-scores ###
-    tL = []
-    nSamp = 20
-    nExp  = 500
-    for i in range(nExp):
-        samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
-        samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
-        s1    = np.std(samp1)
-        s2    = np.std(samp2)
-        mu1   = np.mean(samp1)
-        mu2   = np.mean(samp2)
-        sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
-        t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
-        tL.append(t)
     print("\n---------------------------------------------------------")
-    print("mean(t) +/- std(t) = {:<.3f} +/- {:<.3f}\n".format(np.mean(tL), np.std(tL)))
+    print("{:<10}{:<10} +/- {:<10}{:<10}".format("nSamp","mean(t)","std(t)","frac_w_t_gt_2"))
+    for nSamp in [3,5,10,15,20,30,40,50,75,100,200]:
+        #nSamp = 20
+        nExp  = 500
+        tL = np.zeros(nExp)
+        for i in range(nExp):
+            samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
+            samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
+            s1    = np.std(samp1)
+            s2    = np.std(samp2)
+            mu1   = np.mean(samp1)
+            mu2   = np.mean(samp2)
+            sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
+            t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
+            tL[i] = t
+        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<10.3f}".format(nSamp,np.mean(tL),
+              np.std(tL),len(tL[np.abs(tL) > 2])/nExp))
 
-    print(convert_tscore_to_pvalue(6.0))
+    #print(convert_tscore_to_pvalue(6.0))
 
 
 if __name__ == "__main__":

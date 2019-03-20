@@ -6,6 +6,7 @@ To Do:
 1. Plot the population distributions, matplotlib
 2. Compute p-value
 3. Do experiments as a function of number of samples in groups
+4. Test distribution with exact overlap.
 
 
 
