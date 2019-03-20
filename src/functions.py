@@ -12,6 +12,13 @@ def convert_tscore_to_pvalue(T=None):
     RETURN:
     DESCRIPTION:
     DEBUG:
+        1. convert_tscore_to_pvalue() is working correctly.
+           t=2.0 -> p = 0.045500263896363025
+           t=3.0 -> p = 0.002699796063260762
+           t=4.0 -> p = 6.334248366629547e-05
+           t=5.0 -> p = 5.733031437360481e-07
+           t=6.0 -> p = 1.9731752898266564e-09
+           Pretty much exact match
     FUTURE:
     """
     xV,pdfV = gaussian(S=1,Mu=0)
@@ -30,6 +37,7 @@ def gaussian_integral(S=None, Mu=None, Xmin=None, Xmax=None):
         Used wolfram alpha to get the integral.
                 E.g. integrate 1/sqrt(2*pi*s**2) exp(-(x-m)**2 / (2*s**2)) dx
     DEBUG:
+        1. This must work correctly since convert_tscore_to_pvalue() works
     FUTURE:
     """
     lower = (-erf( (Mu - Xmin) / (sqrt(2.0) * S))  / 2.0)
@@ -48,6 +56,7 @@ def gaussian(S=None, Mu=None):
         Maybe this is really a gaussian kernel ?
     DEBUG:
         1. Roughly sums to 1.0
+        2. This must work correctly since convert_tscore_to_pvalue() works
     FUTURE:
     """
     xL=[]

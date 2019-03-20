@@ -195,7 +195,7 @@ def main():
     print("\n---------------------------------------------------------")
     print("mean(t) +/- std(t) = {:<.3f} +/- {:<.3f}\n".format(np.mean(tL), np.std(tL)))
 
-    print(convert_tscore_to_pvalue(2.0))
+    print(convert_tscore_to_pvalue(6.0))
 
 
 if __name__ == "__main__":
