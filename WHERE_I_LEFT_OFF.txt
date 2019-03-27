@@ -1,12 +1,25 @@
 Did:
-1. 
-
 
 To Do:
 1. Plot the population distributions, matplotlib
 2. Compute p-value
 3. Do experiments as a function of number of samples in groups
 4. Test distribution with exact overlap.
+5. Compare with either python or R p-value calculators
+6. Finish welchs_t_test(), ask on SO what to do with degrees of freedom
+7. Do better integration of gamma() that handles Z < 1.0 correctly, right now Z=0.5
+   returns an incorrect value.
+
+Talked with Bill:
+1. Talked to Bill, t-distribution is normal only when N-> large,
+   For looking at N=3,5,10,20, should be very careful about computing
+   frac_w_t_gt_2.  This corrects for the fact that at low N.  When N is small
+   my p-value is wrong! Need to adjust for critical errors.
+   --> He says 'more often than not' biomedical researcher does the right thing!
+   --> 'unpaired' two sample t-test, '2-sample-independent' t-test.
+   --> look up pt and qt
+2. Suggested plotting 't' and comparing to normal
+3. My stdev of mean intuition is correct.
 
 
 

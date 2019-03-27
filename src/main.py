@@ -62,6 +62,7 @@ from error import exit_with_error
 import matplotlib
 import random
 from functions import convert_tscore_to_pvalue
+from functions import student_t_test_eq_samp_and_var
 
 def print_help(ExitCode):
     """
@@ -162,6 +163,7 @@ def main():
     ##############################################
     #t = (np.mean(pop2V) - mu1) / (sd2 / np.sqrt(N2))
     nSamp = N1
+    #t=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
     samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
     samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
     s1    = np.std(samp1)
@@ -186,14 +188,7 @@ def main():
         nExp  = 500
         tL = np.zeros(nExp)
         for i in range(nExp):
-            samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
-            samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
-            s1    = np.std(samp1)
-            s2    = np.std(samp2)
-            mu1   = np.mean(samp1)
-            mu2   = np.mean(samp2)
-            sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
-            t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
+            t=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
             tL[i] = t
         print("{:<10}{:<10.3f} +/- {:<10.3f}{:<10.3f}".format(nSamp,np.mean(tL),
               np.std(tL),len(tL[np.abs(tL) > 2])/nExp))
