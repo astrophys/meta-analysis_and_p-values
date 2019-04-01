@@ -27,6 +27,9 @@ def convert_tscore_to_pvalue(T=None,DF=None):
            Pretty much exact match
         2. Now using correct t-distribution...Compare with
            https://www.danielsoper.com/statcalc/calculator.aspx?id=8
+           Can also use wolfram, E.g. : 
+            1 - Integrate PDF[StudentTDistribution[3], x] dx, -1.25,1.25
+
            [DF=15, t-score=1.25] = 0.23045059 (Soper) vs 0.23047198 (Ali)  : 0.09% diff
            [DF=3, t-score=1.25] = 0.29992947  (Soper) vs 0.29781848 (Ali)  : 0.70% diff 
            [DF=2, t-score=1.25] = 0.33773382  (Soper) vs 0.32789701 (Ali)  : 2.91% diff
@@ -36,7 +39,7 @@ def convert_tscore_to_pvalue(T=None,DF=None):
     """
     #xV,pdfV = gaussian(S=1,Mu=0)
     xV,pdfV = t_dist(DF=DF)
-    pvalue = np.sum(pdfV[xV<-T]) + np.sum(pdfV[xV>T])
+    pvalue = np.sum(pdfV[xV<-abs(T)]) + np.sum(pdfV[xV>abs(T)])
     return(pvalue)
     
     
@@ -165,7 +168,7 @@ def student_t_test_eq_samp_and_var(Pop1V = None, Pop2V = None, NSamp = None):
         Pop2V : The total population of the Treatment
         NSamp in both experiments
     RETURN:
-        a student t-score
+        a student t-score, degrees of freedom and associated p-value
     DESCRIPTION:
         Per https://en.wikipedia.org/wiki/Student%27s_t-test, this test assumes
         Equal sample sizes, equal variance are assumed
@@ -181,9 +184,14 @@ def student_t_test_eq_samp_and_var(Pop1V = None, Pop2V = None, NSamp = None):
     s2    = np.std(samp2)
     mu1   = np.mean(samp1)
     mu2   = np.mean(samp2)
-    sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
-    t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / NSamp))
-    return(t)
+    ### Equal variance and sample size ###
+    #sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
+    #t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / NSamp))      
+
+    ### Un-Equal variance and unequal sample size ###
+    (t,v) = welchs_t_test(Pop1V = Pop1V, Pop2V = Pop2V, N1Samp = len(samp1), N2Samp = len(samp2))
+    p = convert_tscore_to_pvalue(T=t, DF=v)
+    return(t,v,p)
 
 
 
@@ -195,7 +203,7 @@ def welchs_t_test(Pop1V = None, Pop2V = None, N1Samp = None, N2Samp = None):
         N1Samp: Number of samples in experiment 1
         N2Samp: Number of samples in experiment 2
     RETURN:
-        a student t-score
+        a student t-score and degrees of freedom
     DESCRIPTION:
         Per https://en.wikipedia.org/wiki/Welch%27s_t-test
         Test assumes:
@@ -207,8 +215,8 @@ def welchs_t_test(Pop1V = None, Pop2V = None, N1Samp = None, N2Samp = None):
     """
     N1 = len(Pop1V)
     N2 = len(Pop2V)
-    samp1 = Pop1V[np.random.randint(low=0, high=N1, size=NSamp)]
-    samp2 = Pop2V[np.random.randint(low=0, high=N2, size=NSamp)]
+    samp1 = Pop1V[np.random.randint(low=0, high=N1, size=N1)]
+    samp2 = Pop2V[np.random.randint(low=0, high=N2, size=N2)]
     s1    = np.std(samp1)
     s2    = np.std(samp2)
     mu1   = np.mean(samp1)
@@ -217,7 +225,7 @@ def welchs_t_test(Pop1V = None, Pop2V = None, N1Samp = None, N2Samp = None):
     v1    = N1Samp - 1
     v2    = N2Samp - 1
     v     = (s1**2/N1Samp + s2**2/N2Samp)**2 / (s1**4/(N1Samp**2*v1) + s2**4/(N2Samp**2*v2))
-    return(t)
+    return(t,v)
 
 
 #def gamma(Z=None):

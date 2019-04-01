@@ -1,4 +1,10 @@
 Did:
+1. Fixed convert_tscore_to_pvalue() to correctly handle negative t-score
+2. Changed student_t_test_eq_samp_and_var() to use Welch's t-test.
+3. Corrected / modified welchs_t_test
+4. Print out p-values in experiment.
+NOTE : These corrections (by using the actual Student t-distribution with degrees
+       of freedom) seemed to fix the values / issues mentioned by Bill
 
 To Do:
 1. Plot the population distributions, matplotlib
@@ -18,6 +24,7 @@ Talked with Bill:
    --> He says 'more often than not' biomedical researcher does the right thing!
    --> 'unpaired' two sample t-test, '2-sample-independent' t-test.
    --> look up pt and qt
+   --> FIXED!!
 2. Suggested plotting 't' and comparing to normal
 3. My stdev of mean intuition is correct.
 

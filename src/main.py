@@ -182,16 +182,22 @@ def main():
     
     ### Let's now look at the distribution of t-scores ###
     print("\n---------------------------------------------------------")
-    print("{:<10}{:<10} +/- {:<10}{:<10}".format("nSamp","mean(t)","std(t)","frac_w_t_gt_2"))
-    for nSamp in [3,5,10,15,20,30,40,50,75,100,200]:
+    print("{:<10}{:<10} +/- {:<10}{:<16}   {:<14} +/- {:<10}{:<14}".format("nSamp",
+          "mean(t)","std(t)","frac_w_t_gt_2","mean(p)", "std(p)", "frac_w_p_lt_0.05"))
+    for nSamp in [3,5,10,15,20,30,40,50,75,100]:
         #nSamp = 20
         nExp  = 500
         tL = np.zeros(nExp)
+        pL = np.zeros(nExp)
+        vL = np.zeros(nExp)
         for i in range(nExp):
-            t=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
+            (t,v,p)=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
             tL[i] = t
-        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<10.3f}".format(nSamp,np.mean(tL),
-              np.std(tL),len(tL[np.abs(tL) > 2])/nExp))
+            pL[i] = p
+        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<16.3f}   "
+              "{:<14.3e} +/- {:<10.3e}{:<14.3f}".format(nSamp,np.mean(tL),
+              np.std(tL),len(tL[np.abs(tL) > 2])/nExp, np.mean(pL), np.std(pL),
+              len(pL[np.abs(pL) < 0.05])/nExp))
 
     #print(convert_tscore_to_pvalue(6.0))
 
