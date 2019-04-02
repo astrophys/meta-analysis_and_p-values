@@ -63,6 +63,7 @@ import matplotlib
 import random
 from functions import convert_tscore_to_pvalue
 from functions import student_t_test_eq_samp_and_var
+from plotting import plot_histogram
 
 def print_help(ExitCode):
     """
@@ -109,7 +110,7 @@ def main():
     for i in range(N1):
         pop1V[i] = random.gauss(pop1_mu, pop1_sd)
     # Population / Dist 2
-    pop2_mu = 1
+    pop2_mu = 0
     pop2_sd = 1
     N2  = 100000    ### Number of samples 
     pop2V = np.zeros([N2])
@@ -182,7 +183,7 @@ def main():
     
     ### Let's now look at the distribution of t-scores ###
     print("\n---------------------------------------------------------")
-    print("{:<10}{:<10} +/- {:<10}{:<16}   {:<14} +/- {:<10}{:<14}".format("nSamp",
+    print("{:<10}{:<10} +/- {:<10}{:<16} {:<10} +/- {:<10} {:<14}".format("nSamp",
           "mean(t)","std(t)","frac_w_t_gt_2","mean(p)", "std(p)", "frac_w_p_lt_0.05"))
     for nSamp in [3,5,10,15,20,30,40,50,75,100]:
         #nSamp = 20
@@ -194,8 +195,8 @@ def main():
             (t,v,p)=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
             tL[i] = t
             pL[i] = p
-        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<16.3f}   "
-              "{:<14.3e} +/- {:<10.3e}{:<14.3f}".format(nSamp,np.mean(tL),
+        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<16.3f} "
+              "{:<10.3e} +/- {:<10.3e} {:<14.3e}".format(nSamp,np.mean(tL),
               np.std(tL),len(tL[np.abs(tL) > 2])/nExp, np.mean(pL), np.std(pL),
               len(pL[np.abs(pL) < 0.05])/nExp))
 

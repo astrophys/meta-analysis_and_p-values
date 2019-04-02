@@ -189,19 +189,17 @@ def student_t_test_eq_samp_and_var(Pop1V = None, Pop2V = None, NSamp = None):
     #t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / NSamp))      
 
     ### Un-Equal variance and unequal sample size ###
-    (t,v) = welchs_t_test(Pop1V = Pop1V, Pop2V = Pop2V, N1Samp = len(samp1), N2Samp = len(samp2))
+    (t,v) = welchs_t_test(Samp1V = samp1, Samp2V = samp2)
     p = convert_tscore_to_pvalue(T=t, DF=v)
     return(t,v,p)
 
 
 
-def welchs_t_test(Pop1V = None, Pop2V = None, N1Samp = None, N2Samp = None):
+def welchs_t_test(Samp1V = None, Samp2V = None):
     """
     ARGS:
-        Pop1V : The total population of the WT
-        Pop2V : The total population of the Treatment
-        N1Samp: Number of samples in experiment 1
-        N2Samp: Number of samples in experiment 2
+        Samp1: samples in experiment 1 ... WT
+        Samp2: samples in experiment 2 ... Treatment
     RETURN:
         a student t-score and degrees of freedom
     DESCRIPTION:
@@ -213,60 +211,16 @@ def welchs_t_test(Pop1V = None, Pop2V = None, N1Samp = None, N2Samp = None):
     DEBUG:
     FUTURE:
     """
-    N1 = len(Pop1V)
-    N2 = len(Pop2V)
-    samp1 = Pop1V[np.random.randint(low=0, high=N1, size=N1)]
-    samp2 = Pop2V[np.random.randint(low=0, high=N2, size=N2)]
-    s1    = np.std(samp1)
-    s2    = np.std(samp2)
-    mu1   = np.mean(samp1)
-    mu2   = np.mean(samp2)
-    t     = (mu1 - mu2) / np.sqrt(s1**2/N1Samp + s2**2/N2Samp)
-    v1    = N1Samp - 1
-    v2    = N2Samp - 1
-    v     = (s1**2/N1Samp + s2**2/N2Samp)**2 / (s1**4/(N1Samp**2*v1) + s2**4/(N2Samp**2*v2))
+    N1 = len(Samp1V)
+    N2 = len(Samp2V)
+    #samp1 = Pop1V[np.random.randint(low=0, high=N1, size=N1)]
+    #samp2 = Pop2V[np.random.randint(low=0, high=N2, size=N2)]
+    s1    = np.std(Samp1V)
+    s2    = np.std(Samp2V)
+    mu1   = np.mean(Samp1V)
+    mu2   = np.mean(Samp2V)
+    t     = (mu1 - mu2) / np.sqrt(s1**2/N1 + s2**2/N2)
+    v1    = N1 - 1
+    v2    = N2 - 1
+    v     = (s1**2/N1 + s2**2/N2)**2 / (s1**4/(N1**2*v1) + s2**4/(N2**2*v2))
     return(t,v)
-
-
-#def gamma(Z=None):
-#    """
-#    ARGS:
-#        Z can be either integer or float
-#    RETURN:
-#    DESCRIPTION:
-#        Use simpson's rule to compute the value of the Gamma function
-#        http://mathworld.wolfram.com/SimpsonsRule.html
-#    DEBUG:
-#    FUTURE:
-#        Do better integration scheme
-#    """
-#    sum=0
-#    tol=10**-7
-#    frac=1.0
-#    dx = 10**-4
-#    x = 10**-9
-#
-#    if(Z < 1.0):
-#        exit_with_error("ERROR!!! Our gamma() misbehaves when Z<1.0 b/c the "
-#                        " integral beings at 0 and 0**(Z-1) = 1/0 which is undefined\n"
-#                        " We must be more clever than that\n")
-#    while frac > tol:
-#        prevSum = sum
-#        # integrate
-#        h = dx / 2.0
-#        x0 = x
-#        x1 = x + h
-#        x2 = x + 2.0*h
-#        try:
-#            y0 = x0**(Z - 1) * np.exp(-x0)
-#            y1 = x1**(Z - 1) * np.exp(-x1)
-#            y2 = x2**(Z - 1) * np.exp(-x2)
-#        except ZeroDivisionError:
-#            exit_with_error("ERROR!!")
-#            #yi = xi**(Z - 1) * np.exp(-xi)   ### HANDLE xi=0!!!
-#        #area = dx * yi + dx * (yf - yi) * 0.5   ## Integrate triangle
-#        area = 1/3.0 * h * (y0 + 4*y1 + y2)
-#        sum = sum + area
-#        x = x + dx
-#        frac = abs(sum - prevSum) / sum
-#    return(sum)

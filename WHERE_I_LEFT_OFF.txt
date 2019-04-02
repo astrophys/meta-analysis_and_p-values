@@ -1,20 +1,15 @@
 Did:
-1. Fixed convert_tscore_to_pvalue() to correctly handle negative t-score
-2. Changed student_t_test_eq_samp_and_var() to use Welch's t-test.
-3. Corrected / modified welchs_t_test
-4. Print out p-values in experiment.
-NOTE : These corrections (by using the actual Student t-distribution with degrees
-       of freedom) seemed to fix the values / issues mentioned by Bill
 
 To Do:
 1. Plot the population distributions, matplotlib
-2. Compute p-value
-3. Do experiments as a function of number of samples in groups
-4. Test distribution with exact overlap.
-5. Compare with either python or R p-value calculators
-6. Finish welchs_t_test(), ask on SO what to do with degrees of freedom
-7. Do better integration of gamma() that handles Z < 1.0 correctly, right now Z=0.5
-   returns an incorrect value.
+2. Compare with either python or R p-value calculators
+3. Now do in context of Cohen's d
+4. Make mean and sd CL arguments of function.
+5. Try to understand why for low N
+6. Write up latex description of this program.
+7. Make plots.
+8. compare t-scores from both methods
+
 
 Talked with Bill:
 1. Talked to Bill, t-distribution is normal only when N-> large,
@@ -28,5 +23,6 @@ Talked with Bill:
 2. Suggested plotting 't' and comparing to normal
 3. My stdev of mean intuition is correct.
 
-
+Question:
+1. Ask Bill if my random trials are now correct, now that I'm using the correct t-score?
 
