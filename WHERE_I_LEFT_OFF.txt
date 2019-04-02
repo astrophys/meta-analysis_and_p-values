@@ -7,7 +7,7 @@ To Do:
 4. Make mean and sd CL arguments of function.
 5. Try to understand why for low N
 6. Write up latex description of this program.
-7. Make plots.
+7. Make plots - check that hist is acutally normalized .... Needs fixed.
 8. compare t-scores from both methods
 
 

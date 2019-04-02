@@ -62,7 +62,7 @@ from error import exit_with_error
 import matplotlib
 import random
 from functions import convert_tscore_to_pvalue
-from functions import student_t_test_eq_samp_and_var
+from functions import student_t_test
 from plotting import plot_histogram
 
 def print_help(ExitCode):
@@ -186,13 +186,16 @@ def main():
     print("{:<10}{:<10} +/- {:<10}{:<16} {:<10} +/- {:<10} {:<14}".format("nSamp",
           "mean(t)","std(t)","frac_w_t_gt_2","mean(p)", "std(p)", "frac_w_p_lt_0.05"))
     for nSamp in [3,5,10,15,20,30,40,50,75,100]:
-        #nSamp = 20
         nExp  = 500
         tL = np.zeros(nExp)
         pL = np.zeros(nExp)
         vL = np.zeros(nExp)
         for i in range(nExp):
-            (t,v,p)=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
+            ### Draw Samples ###
+            samp1V = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
+            samp2V = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
+            ### Compute t-score, p-values ###
+            (t,v,p)=student_t_test(Samp1V=samp1V, Samp2V=samp2V)
             tL[i] = t
             pL[i] = p
         print("{:<10}{:<10.3f} +/- {:<10.3f}{:<16.3f} "

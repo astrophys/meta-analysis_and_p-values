@@ -161,7 +161,7 @@ def integrate(Function=None, DF=None, Xmin=None, Xmax=None):
     return(1/3.0 * h * (f0 + 4*f1 + f2))
 
 
-def student_t_test_eq_samp_and_var(Pop1V = None, Pop2V = None, NSamp = None):
+def student_t_test(Samp1V = None, Samp2V = None):
     """
     ARGS:
         Pop1V : The total population of the WT
@@ -176,20 +176,23 @@ def student_t_test_eq_samp_and_var(Pop1V = None, Pop2V = None, NSamp = None):
         1. Matches results expected in high N limit with mu1 ~ mu2
     FUTURE:
     """
-    N1 = len(Pop1V)
-    N2 = len(Pop2V)
-    samp1 = Pop1V[np.random.randint(low=0, high=N1, size=NSamp)]
-    samp2 = Pop2V[np.random.randint(low=0, high=N2, size=NSamp)]
-    s1    = np.std(samp1)
-    s2    = np.std(samp2)
-    mu1   = np.mean(samp1)
-    mu2   = np.mean(samp2)
+    N1 = len(Samp1V)
+    N2 = len(Samp2V)
+    if(N1 != N2):
+        exit_with_error("ERROR!!! N1 != N2, {} != {}\n", N1, N2)
+    #samp1 = Pop1V[np.random.randint(low=0, high=N1, size=NSamp)]
+    #samp2 = Pop2V[np.random.randint(low=0, high=N2, size=NSamp)]
+    s1    = np.std(Samp1V)
+    s2    = np.std(Samp2V)
+    mu1   = np.mean(Samp1V)
+    mu2   = np.mean(Samp2V)
     ### Equal variance and sample size ###
-    #sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
-    #t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / NSamp))      
+    sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
+    t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / N1))
+    v     = N1 + N2 - 2
 
     ### Un-Equal variance and unequal sample size ###
-    (t,v) = welchs_t_test(Samp1V = samp1, Samp2V = samp2)
+    #(t,v) = welchs_t_test(Samp1V = samp1, Samp2V = samp2)
     p = convert_tscore_to_pvalue(T=t, DF=v)
     return(t,v,p)
 
@@ -213,8 +216,6 @@ def welchs_t_test(Samp1V = None, Samp2V = None):
     """
     N1 = len(Samp1V)
     N2 = len(Samp2V)
-    #samp1 = Pop1V[np.random.randint(low=0, high=N1, size=N1)]
-    #samp2 = Pop2V[np.random.randint(low=0, high=N2, size=N2)]
     s1    = np.std(Samp1V)
     s2    = np.std(Samp2V)
     mu1   = np.mean(Samp1V)
@@ -223,4 +224,5 @@ def welchs_t_test(Samp1V = None, Samp2V = None):
     v1    = N1 - 1
     v2    = N2 - 1
     v     = (s1**2/N1 + s2**2/N2)**2 / (s1**4/(N1**2*v1) + s2**4/(N2**2*v2))
-    return(t,v)
+    p     = convert_tscore_to_pvalue(T=t, DF=v)
+    return(t,v,p)
