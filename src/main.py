@@ -73,11 +73,11 @@ def print_help(ExitCode):
     DEBUG:
     FUTURE:
     """
-    sys.stderr.write("./src/main.py [analyze|collect|test]\n"
-                     "   [analyze]: Analyze previously collected data\n"
-                     "   [collect]: Collect fresh data and then analyze\n"
-                     "   [test]   : Run some unit tests and a test data set, "
-                     "              check output\n"
+    sys.stderr.write("./src/main.py mu1 s1 mu2 s2\n"
+                     "    mu1 : float, mean(population 1), assumed gaussian\n"
+                     "    s1  : float, stdev(population 1)\n"
+                     "    mu2 : float, mean(population 2), assumed gaussian\n"
+                     "    s2  : float, stdev(population 2)\n"
                      "\nTo run locally, with all correctly installed packages run\n"
                      "     source ~/.local/virtualenvs/python3.6/bin/activate\n")
     sys.exit(ExitCode)
@@ -96,26 +96,29 @@ def main():
         exit_with_error("ERROR!!! Runs with python3, NOT {}\n".format(sys.argv[0]))
     if(len(sys.argv) == 2 and ("--h" in sys.argv[1] or "-h" in sys.argv[1])):
         print_help(ExitCode=0)
-    elif(len(sys.argv) != 1):
+    elif(len(sys.argv) != 5):
         print_help(ExitCode=1)
     np.random.seed(42)
     random.seed(42)
 
     ### Create the population distributions, draw our experimental samples from these ###
     # Population / Dist 1
-    pop1_mu = 0         ### average
-    pop1_sd = 1         ### standard dev
+    pop1_mu = float(sys.argv[1])         ### average
+    pop1_sd = float(sys.argv[2])         ### standard dev
     N1  = 100000    ### Number of samples 
     pop1V = np.zeros([N1])
     for i in range(N1):
         pop1V[i] = random.gauss(pop1_mu, pop1_sd)
     # Population / Dist 2
-    pop2_mu = 0
-    pop2_sd = 1
+    pop2_mu = float(sys.argv[3])
+    pop2_sd = float(sys.argv[4])
     N2  = 100000    ### Number of samples 
     pop2V = np.zeros([N2])
     for i in range(N2):
         pop2V[i] = random.gauss(pop2_mu, pop2_sd)
+    print("\n---------------------------------------------------------")
+    print("Population 1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
+          "Population 1 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(pop1_mu,pop1_sd,pop2_mu,pop2_sd))
 
     ### 
     #  Explore Standard deviation of the mean : \sigma / sqrt(N)
