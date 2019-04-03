@@ -63,6 +63,7 @@ import matplotlib
 import random
 from functions import convert_tscore_to_pvalue
 from functions import student_t_test
+from functions import welchs_t_test
 from plotting import plot_histogram
 
 def print_help(ExitCode):
@@ -129,7 +130,9 @@ def main():
     # Draw 20 experiments, see if the means cluster with std. dev. of mean. Use dist. 2
     nSamp       = 50          # Number of samples in each experiment
     nExpL       = [20, 200, 2000, 20000, 50000, 100000]     # Number of experiments
-    print("Population mean = {:<.4f}, {} samples per experiment\n".format(
+    #print("---------------------------------------------------------")
+    print("\n# Testing Std. Dev. of Mean for Population 2.\n"
+          "# Pop1_mu = {:<.4f}\n# {} samples per experiment".format(
           np.mean(pop2V),nSamp))
     print("---------------------------------------------------------")
     print("{:<10}{:<15}{:<15}{:<17}{:<15}".format("nExp", "mean_of_means", "std_of_means",
@@ -176,7 +179,7 @@ def main():
     mu2   = np.mean(samp2)
     sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
     t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
-    print("---------------------------------------------------------")
+    print("\n\n---------------------------------------------------------")
     print("t-score using entire distribution N1 {} and N2 {}".format(N1,N2))
     print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
           "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
@@ -184,29 +187,60 @@ def main():
     print("    Samp1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
           "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
     
+
+
+
     ### Let's now look at the distribution of t-scores ###
-    print("\n---------------------------------------------------------")
-    print("{:<10}{:<10} +/- {:<10}{:<16} {:<10} +/- {:<10} {:<14}".format("nSamp",
-          "mean(t)","std(t)","frac_w_t_gt_2","mean(p)", "std(p)", "frac_w_p_lt_0.05"))
+    #print("\n---------------------------------------------------------")
+    nExp  = 500
+    print("\n# Running {} Experiments per each sample size. Computing stats "
+          "over all {} Experiments".format(nExp, nExp))
+    print("---------------------------------------------------------"
+          "-----------------------------------")
+    print("   Equal sample sizes, equal variance                   |   "
+          "   Equal sample sizes, equal variance - Welchs'")
+    print("---------------------------------------------------------"
+          "-----------------------------------")
+    print("{:<7}{:<8}{:<8}{:<7} "
+          "{:<8}{:<8}{:<9}| "
+          "{:<8}{:<8}{:<7} "
+          "{:<8}{:<8}{:<9}".format(
+          "nSamp", "mu(t)", "std(t)", "frac>2",
+          "mu(p)", "std(p)", "frac<.05",
+          "mu(tW)", "std(tW)", "frac>2",
+          "mu(pW)", "std(pW)", "frac<.05"))
     for nSamp in [3,5,10,15,20,30,40,50,75,100]:
-        nExp  = 500
+        ### Equal sample sizes, equal variance
         tL = np.zeros(nExp)
         pL = np.zeros(nExp)
         vL = np.zeros(nExp)
+        ### un-equal sample sizes, un-equal variance
+        tWelchL = np.zeros(nExp)
+        pWelchL = np.zeros(nExp)
+        vWelchL = np.zeros(nExp)
         for i in range(nExp):
             ### Draw Samples ###
             samp1V = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
             samp2V = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
-            ### Compute t-score, p-values ###
+            ### Compute t-score, p-values - equal samp size, equal variance ###
             (t,v,p)=student_t_test(Samp1V=samp1V, Samp2V=samp2V)
             tL[i] = t
             pL[i] = p
-        print("{:<10}{:<10.3f} +/- {:<10.3f}{:<16.3f} "
-              "{:<10.3e} +/- {:<10.3e} {:<14.3e}".format(nSamp,np.mean(tL),
-              np.std(tL),len(tL[np.abs(tL) > 2])/nExp, np.mean(pL), np.std(pL),
-              len(pL[np.abs(pL) < 0.05])/nExp))
+            ### Compute t-score, p-values - un-equal samp size, un-equal variance ###
+            (t,v,p)=welchs_t_test(Samp1V=samp1V, Samp2V=samp2V)
+            tWelchL[i] = t
+            pWelchL[i] = p
+        print("{:<7}{:<8.3f}{:<8.3f}{:<7.3f} "
+              "{:<8.3f}{:<8.3f}{:<9.3f}| "
+              "{:<8.3f}{:<8.3f}{:<7.3f} "
+              "{:<8.3f}{:<8.3f}{:<9.3f}".format(
+              nSamp, np.mean(tL), np.std(tL), len(tL[np.abs(tL) > 2])/nExp,
+              np.mean(pL), np.std(pL), len(pL[np.abs(pL) < 0.05])/nExp,
+              np.mean(tWelchL), np.std(tWelchL), len(tWelchL[np.abs(tWelchL) > 2])/nExp,
+              np.mean(pWelchL), np.std(pWelchL), len(pWelchL[np.abs(pWelchL) < 0.05])/nExp)
 
-    #print(convert_tscore_to_pvalue(6.0))
+)
+
 
 
 if __name__ == "__main__":
