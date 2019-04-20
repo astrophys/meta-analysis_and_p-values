@@ -8,6 +8,7 @@ To Do:
 5. Make plots - check that hist is acutally normalized .... Needs fixed.
 6. compare t-scores from both methods
 7. Dynamically handle if stdev whether to use welch's or normal/paired t-test
+8. Work on writing up notes in a concise fashion.
 
 
 Talked with Bill:
@@ -25,4 +26,6 @@ Talked with Bill:
 Question:
 1. Ask Bill if my random trials are now correct, now that I'm using the correct t-score?
    --> Ask about student-t vs. welch-t
+   Answer : as 500 experiments -> 10**6, the frac_p<0.5 welch's and equal tscores should converge.  This is b/c I'm estimating s1 and s2 in welchs_t_score
+2. Ask Bill why Cohen's d avoids sample size effects? \sigma_observed converges on \sigma_population and this is still a result of effect size
 

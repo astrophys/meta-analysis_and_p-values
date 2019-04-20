@@ -1,3 +1,5 @@
 .*.swp
 src/__pycache__
 *.pyc
+*.pdf
+.DS_Store
