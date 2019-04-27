@@ -4,6 +4,7 @@ Compile :
 
 Notes:
     1. http://lierdakil.github.io/pandoc-crossref/ 
+    2. https://pandoc.org/MANUAL.html#bullet-lists
 --> 
 
 
@@ -170,6 +171,42 @@ Chapter 2 : Problem Specification and Study Retrieval
         * odds-ratio
         * some custom ad-hoc thing that you make up
     #) Forms of research findings that can be represented with 'off-the-shelf' effect size statistics
+    #) Central Tendency Description
+        * E.g. mean, median, mode or proportion on single sample of respondents
+        * E.g. proportion of women who have migraines
+        * Can be done if various studies provide number of samples - meta-analysis can be used.
+        * Can only be done if 'operationalization' of variable of interest is same for all findings.
+            - E.g. every study uses same measure, like mean
+    #) Pre-Post Contrasts
+        * E.g. how much better reading scores are at end of school year vs. beginning.
+        * Types of statistics used are mean difference gain
+        * [@becker88] used standardized difference between means for meta-analysis.
+    #) Group Contrasts
+        * Type of research involves one or more variables between two or more groups
+        * Central tendency values (i.e. mean or proportion) are measured and compared
+        * Two primary forms of this research:
+            - Experimental or clinical trials research
+                + Treatment vs. Control
+            - Group differnces research
+                + Groups are compared based on identified differences.
+                + E.g. income of men vs. women
+                + E.g. reading ability of ID students and low-achieving but non-ID students
+        * Frequent application to research of this type, esp treatment vs. control
+            - No generalized method for comparison between 3 or more groups, but still can compare two groups.
+    #) Association between Variables
+        * covariation between two variables.
+            - E.g. correlation between socioeconomic status and student's math grades
+            - Reported as : e.g. chi-square coefficient, odds-ratio, lambda
+        * Two distinct types of studies here:
+            - Measurement research
+                + Associations using measurement instruments
+                + E.g. SAT scores vs. later college scores, measuring prediction ability of future college performance.
+            - Individual differences research
+                + Measures correlation between selected characteristics
+                + E.g.
+                    #. one relation between IQ and number of siblings
+                    #. two alcohol use vs. domestic violence
+            
 
 
 Bibibliography
