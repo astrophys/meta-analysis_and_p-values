@@ -171,42 +171,123 @@ Chapter 2 : Problem Specification and Study Retrieval
         #. odds-ratio
         #. some custom ad-hoc thing that you make up
     #) Forms of research findings that can be represented with 'off-the-shelf' effect size statistics
-    #) Central Tendency Description
-        #. E.g. mean, median, mode or proportion on single sample of respondents
-        #. E.g. proportion of women who have migraines
-        #. Can be done if various studies provide number of samples * meta-analysis can be used.
-        #. Can only be done if 'operationalization' of variable of interest is same for all findings.
-            * E.g. every study uses same measure, like mean
-    #) Pre-Post Contrasts
-        #. E.g. how much better reading scores are at end of school year vs. beginning.
-        #. Types of statistics used are mean difference gain
-        #. [@becker88] used standardized difference between means for meta-analysis.
-    #) Group Contrasts
-        #. Type of research involves one or more variables between two or more groups
-        #. Central tendency values (i.e. mean or proportion) are measured and compared
-        #. Two primary forms of this research:
-            * Experimental or clinical trials research
-                - Treatment vs. Control
-            * Group differnces research
-                - Groups are compared based on identified differences.
-                - E.g. income of men vs. women
-                - E.g. reading ability of ID students and low-achieving but non-ID students
-        #. Frequent application to research of this type, esp treatment vs. control
-            * No generalized method for comparison between 3 or more groups, but still can compare two groups.
-    #) Association between Variables
-        #. covariation between two variables.
-            * E.g. correlation between socioeconomic status and student's math grades
-            * Reported as : e.g. chi-square coefficient, odds-ratio, lambda
-        #. Two distinct types of studies here:
-            * Measurement research
-                - Associations using measurement instruments
-                - E.g. SAT scores vs. later college scores, measuring prediction ability of future college performance.
-            * Individual differences research
-                - Measures correlation between selected characteristics
-                - E.g.
-                    + relation between IQ and number of siblings
-                    + two alcohol use vs. domestic violence
+        #. Central Tendency Description
+            * E.g. mean, median, mode or proportion on single sample of respondents
+            * E.g. proportion of women who have migraines
+            * Can be done if various studies provide number of samples * meta-analysis can be used.
+            * Can only be done if 'operationalization' of variable of interest is same for all findings.
+                - E.g. every study uses same measure, like mean
+        #. Pre-Post Contrasts
+            * E.g. how much better reading scores are at end of school year vs. beginning.
+            * Types of statistics used are mean difference gain
+            * [@becker88] used standardized difference between means for meta-analysis.
+        #. Group Contrasts
+            * Type of research involves one or more variables between two or more groups
+            * Central tendency values (i.e. mean or proportion) are measured and compared
+            * Two primary forms of this research:
+                - Experimental or clinical trials research
+                    + Treatment vs. Control
+                - Group differnces research
+                    + Groups are compared based on identified differences.
+                    + E.g. income of men vs. women
+                    + E.g. reading ability of ID students and low-achieving but non-ID students
+            * Frequent application to research of this type, esp treatment vs. control
+                - No generalized method for comparison between 3 or more groups, but still can compare two groups.
+        #. Association between Variables
+            * covariation between two variables.
+                - E.g. correlation between socioeconomic status and student's math grades
+                - Reported as : e.g. chi-square coefficient, odds-ratio, lambda
+            * Two distinct types of studies here:
+                - Measurement research
+                    + Associations using measurement instruments
+                    + E.g. SAT scores vs. later college scores, measuring prediction ability of future college performance.
+                - Individual differences research
+                    + Measures correlation between selected characteristics
+                    + E.g. relation between IQ and number of siblings
+                    + E.g. alcohol use vs. domestic violence
+    #) Each preceding forms can usually be meta-analyzed straight forwardly
+    #) Research not following above formats can be challanging to meta-analyze
+        #. E.g. multiple regression results cannot be generally represented by effect size statistic.
+            * But the correlation matrix which it is based can be used in bivariate correlations
+        #. Other challenging research types to meta-analyze:
+            * multiple regression
+            * discriminant analysis 
+            * factor analysis 
+            * structural equation modeling
             
+#. Study Eligibility Criteria
+1. Recommendations for including studies in meta-analysis
+    a) Draw up detailed specifications of the criteria a study must meet if its findings are to be includeded in the meta-analysis.
+    #) Categories to consider
+        #. Distinguishing features of a qualifying study
+            * Flesh out what a study must and must not have to be included.
+            * E.g. If topic is the effectiveness of interventions, specify type/critical features of the intervention.
+        #. Research respondents
+            * Constrain study's demographics.  
+                - E.g. Only juviniles? Adults? What is a juvinile (18 or 21)? English-speaking?
+        #. Key variables
+            * Interventions Studies : specific outcome variables needed to address target question
+            * Group Comparison Studies : certain essential variables on which groups are contrasted
+            * Correlational Studies : may be certain covariates or control variables 
+            * Must have enough data to construct effect size statistics.
+        #. Research designs
+            * Maybe only include a certain set (or combination) of studies like 
+                - Random assignment control group
+                - quasi-experiments
+                - double blind studies
+                - placebo controls
+        #. Cultural and linguistic range
+            * Maybe only include studies in language which researcher are fluent. 
+            * Must specify
+        #. Time frame
+            * Only interested in the most recent studies?
+            * Only interested when certain instrument or method became available?
+        #. Publication type
+            * Journal articles, books, dissertations, technical reports, conference presentations.
+            * If unpublished material excluded, then there will be an upward bias.
+                - Often used as proxy for research quality.
+    #) Methodological Quality Revisited
+        #. How inclusive to be when considering studies?
+            * More inclusive 
+                - More studies
+                - Higher noise
+                - Will include studies that critics find unacceptable
+            * Less inclusive 
+                - Less studies
+                - Higher signal 
+                - Possibility that more rigorous studies are conducted in unrepresentative circumstances and produce findings of limited generalizability
+        #. Research findings generally aren't robust to methodological differences between studies.
+            * Often method characteristics that make the most difference, aren't the ones that meta-analyst assumes are most influential.
+        #. Methodological reporting in social and behavioral science literature is poor
+            * Silent or ambiguous on important methodological or procdural matters.
+            * As meta-analyst criteria evolves, will find that studies won't provide enough information to apply that criteria.
+        #. Methodological quality is in the eye of the beholder
+            * Only a few methodological canons are agreed upon
+                - valid measures
+                - random assignment
+            * No general agreement on methods / procedures to use in a given field of study.
+        #. Few researchers and meta-analysts have developed schemes for assessing methodological quality.
+        #. There should be a reciprocal relationship between restrictiveness of criteria and the extent of coding after studies are selected.
+            * If more methodological variation is permitted, more important to encode this.
+            * Allows measuring possible methodological effects.
+        #. Can use meta-analysis to study relationship of methods to findings (see above)
+
+#. Identifying, Locating, and Retrieving Research Reports
+    a) Usually want to select all studies that meet criteria, sampling for population of studies is generally ill-advised.
+    #) Most of this section is outdated and irrelevant to me.
+        #. Summarized:
+            * Do literatures search by walking through references in papers
+            * Use computerized data bases.
+            * Use boolean logic and regex like syntax.
+    #) Possible electronic resources (this is from 1992...)
+        #. PsycINFO
+        #. ERIC (Educational Resources Information Center
+        #. MEDLINE (precursor to pubmed?)
+        #. Library of Congress
+        #. GOOGLE! (from me)
+        #. University libraries.
+
+
 
 
 Bibibliography
