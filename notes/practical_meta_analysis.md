@@ -1,11 +1,13 @@
 <!--
 Compile : 
     pandoc - -biblio=notes/p-value_refs.bib -f markdown notes/practical_meta_analysis.md -t latex -o output.pdf
+    pandoc - -biblio=p-value_refs.bib -f markdown practical_meta_analysis.md - -filter pandoc-crossref -t latex -o output.pdf
 
 Notes:
     1. http://lierdakil.github.io/pandoc-crossref/ 
     2. https://pandoc.org/MANUAL.html#bullet-lists
 --> 
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 
 
 <!--
@@ -21,6 +23,7 @@ abstract: In this document, I record my notes and thoughts as I read ``Practical
 \maketitle
 \tableofcontents
 \pagebreak
+
 
 Chapter 1 : Introduction
 ========================
@@ -286,6 +289,238 @@ Chapter 2 : Problem Specification and Study Retrieval
         #. Library of Congress
         #. GOOGLE! (from me)
         #. University libraries.
+
+
+Chapter 3 : Selecting, Computing and Coding the Effect Size Statistic
+========================
+1. Effect Size Statisitcs and their Variances
+    a) Only consider statistics that encode magnitude and direction
+        #. Excludes 
+            * Simple direction of effects (dichotomous coding of whether treatment is better than control)
+            * p-values 
+                - confound effect magnitude with sample size
+                - lack information on the overall magnitude and consistency of the effect
+    #) Single research finding
+        #. Statistical representation of one empirical relationship involving variables of interest on a single subject (study?) sample. This is the 'result'
+        #. E.g.
+            * correlation coefficient amongst data
+            * correlation matrix
+            * difference in means between treatment and control in research study
+        #. Each research finding must be encoded as a value on the same effect size statistic
+            * Statistic must be appropriate for nature of relationship measured in the studies
+            * Compute value from quantitative values in study
+            * If not enough information (distressingly common) to compute effect size, sometimes it can be estimated.
+                - This is a necessary task for the meta-analyst
+    #) Computing Effect size
+        #. Studies with different sample sizes complicates computing effect size
+            * Studies with more samples lead to a better estimation of underlying population.
+            * Every effect size doesn't carry the same weight
+            * Handled by 
+                - Weighting effect size by a value that represents its precision. Can use:
+                    + Sample size
+                    + Standard error
+                - Weights are inverse of squared standard error value, aka 'inverse variance weight'
+                    + Question : How is this any better than the sample size being embedded within the p-value?
+            * Sometimes getting standard error is challenging, so use already well formulated effect size statistics.
+                - standardized mean difference
+                - correlation coefficient
+                - odds-ratio
+    #) Notes on Notation 
+        #. $ES$ = effect size 
+        #. $SE$ = standard error of the effect size
+        #. $w$  = inverse variance weight of the effect size
+        #. Subscripts used to indicate type of effect size. 
+            * E.g.
+                - $sm$ for standardized mean difference 
+                - $p$ for proportion effect size.
+#. Types of Research Findings and Applicable Effect Size Statisticso
+    a) One-Variable Relationsips (Central Tendency Description)
+        #. Pattern of observation across categories (i.e. treatment vs. control)
+           * E.g.
+                - Central Tendancy Statistics : mean, median, mode
+                - Distribution of Values statistics : frequency, proportions, sums, variance standard deviation and range.
+        #. These types of one-variable relations aren't often meta-analyzed.
+        #. Effect size issues are straight forward if the following two things are met:
+            * First, variable must be operationalized the same way across studies to be meaningfully compared.
+                - Ex. that works:   
+                    + Each study reports the average value of people reporting as male or female
+                - Ex. that fails: 
+                    + Each study uses a different mathematics achievement test. Would need a method to standardize in order to compare
+            * Second, must be possible to define an effect size statistic that represents the information of interest and to determine the standard error associated with that statistic.
+        #. Proportions
+            * Research involving proportions, can use the proportion effect size statistic.
+                - E.g.
+                    + Fraction of homeless who abuse alcohol
+            * Each study must draw from the same population
+                - E.g. 
+                    + homeless, persons hospitalized, substance abusers.
+            * Two types of methods for generating effect size statistics
+                - Base it on proportions. 
+                    $$ES_{p} = p = \frac{k}{n}$$ {#eq:es_p}
+                    $$SE_{p} = \sqrt{\frac{p(1-p)}{n}}$$ {#eq:se_p}
+                    $$w_{p} = \frac{1}{SE_{p}^{2}} = \frac{n}{p(1-p)}$$ {#eq:w_p}
+                    + $k$ = number of subjects in category of interest
+                    + $n$ = total number of subjects
+                    + Numeric simulations indicate that when $p \leq 0.2$ or $p \geq 0.8$ size of confidence interval is underestimated b/c of compression of standard error as $p$ approaches either 0 or 1
+                    + Direct proportion works only when 
+                    +  Mean is of interest
+                    +  $0.2 \leq p \leq 0.8$
+                - Base it on proportions converted to logits
+#.  \bf{HERE I Stopped to focus on Cohen's d which is the whole reason I started reading this book}
+
+<!--
+        #. Arithmetic Means
+    #) Two-Variable Relationsips 
+        #. Pre-Post Contrasts
+        #. Unstandardized Mean Gain
+            * Estimation Procedures
+            * Example
+        #. Standardized Mean Gain
+            * Estimation Procedures
+            * Example
+        #. Group Contrasts
+        #. Unstandardized Mean Difference
+            * Estimation Procedures
+            * Example
+        #. Standardized Mean Difference
+            * Estimation Procedures
+            * Example
+        #. Proportion Difference
+            * Estimation Procedures
+            * Example
+        #. Odds-Ratio
+            * Estimation Procedures
+            * Cell Frequencies Equal to Zero
+            * Example
+        #. Mixing Group Differences measured on continuous and dichotomous scales
+    #) Association between variables
+        #. Two Dichotomous Variables (Odds-Ratio and Phi Coefficient)
+            * Example
+        #. A Dichotomous and Continuous Variables (The Point-Biserial Coefficent and Standardized Mean Difference)
+        #. Two continuous variables (the Product-Moment Correlation)
+            * Estimation Procedures
+            * Example
+        #. Mixed Pairings of Dichotomous and Continuous Variables
+    #) Multivariate Relationships
+        #. Reports of Nonsignificance and Missing Data Problems in Coding Effect Sizes
+-->
+
+
+Chapter 8 : Interpreting and Using Meta-Analysis Results
+========================
+1. Interpreting Effect Size Values
+    a) Problems : 
+        #. Effect size statistics are non-intuitive
+    #) Rules of Thumb for Effect Size Magnitude [@cohen77; @cohen88] . Standardized mean difference : 
+
+    |  small        |medium       | large |
+    |------:        |------:      |:------|
+    | $ES \leq 0.20$| $ES = 0.50$ | $ES \leq 0.80$|
+
+    #) Rules of Thumb for correlation effect size : 
+
+    |  small       |medium      | large |
+    |------:       |------:     |:------|
+    | $r \leq 0.10$| $r = 0.25$ | $r \geq 0.40$|
+
+        #. Supported by distribution in Figure 8.1 from [@lipsey93]
+    #) Translation of Effect Sizes to other metrics
+        #. Original Metric
+            * Often in field of research there is a dominant metric that is used, E.g. 
+                - achievement test
+                - length of stay at an institution
+            * To do this : 
+                - Determine mean and standard deviation.
+                - Ensure control groups in each study represent sample population
+                - Pool results from multiple studies into overall mean
+                - Put both the intervention and control groups on the same scale
+                    + Control group mean plus product of effect size and standard deviation 
+                    + I'm conceptually confused here
+            * E.g.
+                - Suppose mean effect size is +0.30 on client satisfaction survey for medical treatment.
+                - In control group - nurses tell patients 'treatment as ususal'
+                - In treatment group - nurses give patients an orientation session
+                - Most common metric is the Likert scale (ranging from very unsatisfied to very satisfied)
+                - Meta-analyst pulls out all studies using the Likert scale.
+                    + Determine control group mean and standard deviation, call pair of values $k$
+                    + Find grand mean and standard deviation from all $k$ pairs from selected studies
+                    + Because each study will likely have a different sample size, need to use weighted mean with degrees of freedom as weights.
+                    $$Pooled Mean = \bar{X}_{control} = \frac{\sum(n_{i} - 1)\bar{X}_{i}}{\sum(n_{i} - 1)}$$ {#eq:mean_pooled}
+                    $$Pooled sd = \sigma_{control} = \sqrt{\frac{\sum(n_{i} - 1)\sigma_{i}}{\sum(n_{i} - 1)}}$$ {#eq:sd_pooled}
+                    $$\bar{X}_{i} = \text{mean of the control group}$$ {#eq:mean}
+                    $$n_{i} = \text{sample size of control group}$$ {#eq:samp}
+                    $$s_{i} = \text{standard deviation of control group}$$ {#eq:sd}
+                    + Calculations yield mean = 3.5 and standard deviation = 1.5. This would yield an average value of treatment as : 
+                    $$\bar{X}_{treat} = \bar{X}_{control} + ES \times \sigma_{control}$$ {#eq:sd}
+                    $$\bar{X}_{treat} = 3.5 + 0.3 \times 1.5 = 3.95 $$ {#eq:sd}
+
+#. Caveats in Interpreting Meta-Analysis Results
+    a) Methodological Adequacy of the Research Base
+        #. Meta-analysis is only as good as the constituent studies.
+            * When better quality studies differ from lower quality studies, discard lower quality (really? This contradicts what was said in Ch 1. and 2.)
+        #. Often not possible to simply classify studies as good or bad
+            * Use multivariate analysis from Ch. 6. to handle.
+    #) Confounding of Substantitve and Methodological Features
+        #. Can use meta-analysis to break out different treatment vairants and compare effect sizes.
+        #. E.g., Shadish 1992, p131 mentions meta-analysis of psychotherapy
+            * Break out shows behavioral therapy has larger effect vs. nonbehavioral therapy
+            * Behavioral therapy, e.g. use desensitization therapy for phobias and monitor effects by measuring tolerance for feared situation.
+                - Called 'reactive' measures.
+                - More sensitve then pencil and paper standardized anxiety scale.
+                    + This is the reason why behavioral therapy has a larger effect.
+        #. Point of above example is that you need to be careful about not confusing results (effect sizes) with confounding variables.
+            * Break out effect sizes and compare with confounding variables.
+                - E.g. compare rigorous vs. not rigorous studies and the resultant effect sizes.
+    #) Importance of Variance
+        #. Can't look strictly at means. Need to consider variance also
+        #. Look at distribution of effect sizes (see homogeneity test in Ch. 6)
+            * If distribution of effect sizes is hetergeneous (i.e. widely distributed), it would be bad practice to just 'average' over all of them.
+                - "averaging over contrary results is not likely to converge on truth, just muddle it" : what a great quote.
+            * Want homogenous distribution of effect sizes.
+        #. Use random effects model to account for nonsampling error variance in effect size
+            * Use when there is a plausible suspicion that there will be an additional random component contributing to effect size.
+    #) Research Gaps and Generalizability
+        #. If certain treatments, settings, client populations, etc. are not well represented then generalization of results is questionable.
+        #. Sometimes the hypothesis being researched is not what we would want (or do) see in clinical settings.
+        #. The research setting usually is not the clinical setting
+            * This is my point with the ABA therapy promulgated by ?
+                + The advise and consent group (control) likely gets treatment in the community from people with high school degrees vs. the treatment group which gets therapy from University of Washington therapists with BS or MS.
+    #) Sampling Bias
+        #. Literature is suspected of being highly biased towards statisitcally significantly studies.
+        #. Is sampling bias large enough to effect conclusion of meta-analysis?
+        #. Use unpublished studies to bracket publication bias.
+            * Thought : there may be a reason a study was unpublished, i.e. poor experimental design
+            * Thought : getting reliable unpublished work is likely very challenging.
+        #. Can use [@rosenthal79] \emph{fail-safe N} adapted by [@orwin83]
+            * Number of additional studies with null result to lower the $z \leq 1.65$  ($p \geq 0.05$)
+        $$k_{0} = k \left(\frac{\overbar{ES}_{k}}{\overbar{ES}_{c}} - 1\right)$$ {#eq:fsN}
+        $$k_{0} = \text{N studies w/ ES = 0 needed to reduce mean ES to } \overbar{ES}_{c}$$
+        $$k = \text{number of studies in mean effect size}$$
+        $$\overbar{ES}_{k} = \text{weighted mean effect size}$$
+        $$\overbar{ES}_{c} = \text{criterion effect size level}$$
+        #. E.g. 
+            * let $k$ = 42, $\overbar{ES}_{k}$ = 0.74, $\overbar{ES}_{c}$ = 0.50.  Solving [@eq:fsN] yields 
+            $$k_{0} = 42\left(\frac{.74}{.50} - 1\right) = 20$$ {#eq:fsN_ex}
+            * Thus it takes 20 null studies to drop the $ES$ to 0.50
+
+
+#. Implications of Meta-Analysis for Practice and Policy
+    a) Purpose of book is to help researcheres without meta-analytic experience to properly undertake one.
+    #) Properly formed meta-analysis studies can be used to inform policy.
+    #) Good meta-analysis is conducted in 'fish bowl'
+        #. All criteria, data and procedures are explicit
+                    
+    
+Questions
+--------------
+1. Question : How is this any better using $\frac{1}{\sigma_{mean}}$ in effect sizes than the sample size being embedded within the p-value?
+#.
+
+To Do
+--------------
+1. Read Chapter 6 on homengeity test
+#. Read Chapter 3 on unstandardized mean gain
+#. Read p117(?) on confidence intervals.
 
 
 
