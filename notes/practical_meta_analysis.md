@@ -366,44 +366,76 @@ Chapter 3 : Selecting, Computing and Coding the Effect Size Statistic
                     +  Mean is of interest
                     +  $0.2 \leq p \leq 0.8$
                 - Base it on proportions converted to logits
-#.  \bf{HERE I Stopped to focus on Cohen's d which is the whole reason I started reading this book}
-
-<!--
+                - \bf{HERE I Stopped reading the chapter in its entirety in order to focus on Cohen's d which is the whole reason I started reading this book}
         #. Arithmetic Means
+            * \bf{Skipped}
     #) Two-Variable Relationsips 
         #. Pre-Post Contrasts
+            * \bf{Skipped}
         #. Unstandardized Mean Gain
-            * Estimation Procedures
-            * Example
+            * \bf{Skipped}
         #. Standardized Mean Gain
-            * Estimation Procedures
+            * Used when the variable is operationalized across studies, i.e. the same variable is used to measure the effect across studies.
+            $$ ES_{sg} = \frac{\overbar{X}_{T2} - \overbar{X}_{T1}}{s_{p}} = \frac{\overbar{G}}{s_{g}/\sqrt{2(1-r)}} $$ {#eq:es_smg}
+            $$ SE_{sg} = \sqrt{\frac{2(1-r)}{n} + \frac{ES^{2}_{sg}}{2n}}$$ {#eq:se_smg}
+            $$ w_{sg} = \frac{1}{SE^{2}_{sg}} = \frac{2n}{4(1-r)+ES^{2}_{sg}}$${#eq:w_smg}
+            $$ \overbar{X}_{T1} = \text{mean at time 1} $$
+            $$ \overbar{X}_{T2} = \text{mean at time 2} $$
+            $$ G = \text{mean at time 1 - mean at time 2} $$
+            $$ s_{p} = \text{pooled standard devitation for time 1 and time 2} = \sqrt{(s^{2}_{T1} + s^{2}_{T2})/2} $$
+            $$ s_{g} = \text{sd of gain scores} $$
+            $$ n = \text{is comon sample size at Time 1 and Time 2} $$
+            $$ r = \text{correlation between time 1 and time 2} $$
+                - Used at multiple time measurements
+            * Similar to the standardized mean _difference_, but it is distinctly different
+                - Not sure why different.
+                - Seems like applicable to time series data where you only have one group.
             * Example
+                - Consider erosion of mathematics knowledge over the summer for high school students.
+                - Use math achievement test. 
+                - Test at end of school year, test at beginning of following school year.
         #. Group Contrasts
+            * \bf{Skipped}
         #. Unstandardized Mean Difference
+            * \bf{Skipped}
+        #. Standardized Mean Difference (I think this is Cohen's 'd')
+            * Applies to research findings contrasting 2 groups on mean scores w/r/t some dependent variable that has _not_ been operatoinalized across studies
+            $$ ES_{sm} = \frac{\overbar{X}_{G1} - \overbar{X}_{G2}}{s_{p}}$$ {#eq:es_sm}
+            * Note that this effect size statistic is upwardly biased when using small sample sizes, particularly with samples less than 20 [@hedges81]. Provided correction : 
+            $$ ES'_{sm} = \left(1 - \frac{3}{4N - 9}\right) ES_{sm} $$ {#eq:es'_sm}
+            $$ SE_{sm}  = \sqrt{\frac{n_{G1} + n_{G2}}{n_{G1}n_{G2}} + \frac{(ES'_{sm})^{2}}{2(n_{G1} + n_{G2})}}$$ {#eq:se_sm} 
+            $$ w_{sm}  = \frac{1}{SE^{2}_{sm}} = \frac{2n_{G1}n_{G2}(n_{G1} + n_{G2})}{2(n_{G1} + n_{G2})^{2} + n_{G1}n_{G2}(ES'_{sm})^{2}} $$ {#eq:w_sm}
+            $$ N = n_{G1} + n_{G2} $$ {#eq:N_sm}
+            * By convention $ES_{sm}$ is positive when the treatment group does 'better', negative when treatment group does worse.
+            * In some applications the standard deviations can be effected by treatmetn
+                - In this case, use s.d. of control group b/c it isn't effected by the treatment.
             * Estimation Procedures
-            * Example
-        #. Standardized Mean Difference
-            * Estimation Procedures
+                - If studies fail to report means / s.d. needed to compute effect size, sometimes can use other statistics reported.
+                    + $t$-test
+                    + $F$-ration
+                - Least to most approximate : 
+                    + descriptive data are provided from which means and standard deviations can be computed
+                    + complete significance testing stats are available, e.g. $t$-values and df from $t$-test or $F$-values
+                    + exact $p$-value for $t$-test / one-way ANOVA and sample size for each group is available.
+                    + categorical $p$-value is reported (e.g. $p \leq 0.05$) for a $t$-test or one-way ANOVA and sample size for each group or ototal for both is available.
             * Example
         #. Proportion Difference
-            * Estimation Procedures
-            * Example
+            * \bf{Skipped}
         #. Odds-Ratio
-            * Estimation Procedures
-            * Cell Frequencies Equal to Zero
-            * Example
+            * \bf{Skipped}
         #. Mixing Group Differences measured on continuous and dichotomous scales
+            * \bf{Skipped}
     #) Association between variables
         #. Two Dichotomous Variables (Odds-Ratio and Phi Coefficient)
-            * Example
+            * \bf{Skipped}
         #. A Dichotomous and Continuous Variables (The Point-Biserial Coefficent and Standardized Mean Difference)
+            * Example
         #. Two continuous variables (the Product-Moment Correlation)
-            * Estimation Procedures
             * Example
         #. Mixed Pairings of Dichotomous and Continuous Variables
+            * Example
     #) Multivariate Relationships
-        #. Reports of Nonsignificance and Missing Data Problems in Coding Effect Sizes
--->
+            * Example
 
 
 Chapter 8 : Interpreting and Using Meta-Analysis Results
