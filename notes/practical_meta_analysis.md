@@ -402,7 +402,7 @@ Chapter 3 : Selecting, Computing and Coding the Effect Size Statistic
             * Applies to research findings contrasting 2 groups on mean scores w/r/t some dependent variable that has _not_ been operatoinalized across studies
             $$ ES_{sm} = \frac{\overbar{X}_{G1} - \overbar{X}_{G2}}{s_{p}}$$ {#eq:es_sm}
             * Note that this effect size statistic is upwardly biased when using small sample sizes, particularly with samples less than 20 [@hedges81]. Provided correction : 
-            $$ ES'_{sm} = \left(1 - \frac{3}{4N - 9}\right) ES_{sm} $$ {#eq:es'_sm}
+            $$ ES'_{sm} = \left(1 - \frac{3}{4N - 9}\right) ES_{sm} $$ {#eq:esp_sm}
             $$ SE_{sm}  = \sqrt{\frac{n_{G1} + n_{G2}}{n_{G1}n_{G2}} + \frac{(ES'_{sm})^{2}}{2(n_{G1} + n_{G2})}}$$ {#eq:se_sm} 
             $$ w_{sm}  = \frac{1}{SE^{2}_{sm}} = \frac{2n_{G1}n_{G2}(n_{G1} + n_{G2})}{2(n_{G1} + n_{G2})^{2} + n_{G1}n_{G2}(ES'_{sm})^{2}} $$ {#eq:w_sm}
             $$ N = n_{G1} + n_{G2} $$ {#eq:N_sm}
@@ -429,14 +429,132 @@ Chapter 3 : Selecting, Computing and Coding the Effect Size Statistic
         #. Two Dichotomous Variables (Odds-Ratio and Phi Coefficient)
             * \bf{Skipped}
         #. A Dichotomous and Continuous Variables (The Point-Biserial Coefficent and Standardized Mean Difference)
-            * Example
+            * \bf{Skipped}
         #. Two continuous variables (the Product-Moment Correlation)
-            * Example
+            * \bf{Skipped}
         #. Mixed Pairings of Dichotomous and Continuous Variables
-            * Example
+            * \bf{Skipped}
     #) Multivariate Relationships
-            * Example
+        #. \bf{Skipped}
 
+Chapter 6 : Analysis Issues and Strategies
+========================
+1. Stages of Analysis
+    a) Effect Size Adjustments
+        #. Transformations and Bias Corrections
+            * Most common effect size measures: 
+                - standardized mean difference (see [@eq:esp_sm])
+                - correlation coefficient
+                - odds-ratio
+        #. Outliers
+            * Studies with extreme effect size's skew means, variances, etc.
+            * Inspect distribution of effect sizes to look for outliers.
+                - Suggests adjusting / dropping these studies...(really?)
+                - Can recode extreme effect sizes to a value of 2 or 3.
+        #. Hunter and Schmidt Artifact Adjustments
+            * \bf{Skipped}
+    #) Analyzing the Effect Size Mean and Distribution
+        #. Steps : 
+            * Create an independent set of relevant effect sizes   
+            * Compute weighted mean using inverse variance
+            * Determine confidence interval for mean
+            * Test for homogeneity of distribution
+            * If not homogeneous then : 
+                - Repeat steps b-d with different statistical model.
+        #. Creating an Independent set of effect sizes.
+            * E.g. a study measured psychotherapy for children measured : 
+                - depression 
+                - anxiety
+                - relationship with parent
+                - school performance
+            * Create separate effect size for each thing measured.
+            * Be careful to not include these different measurements into an overall effect size as independant measurements.
+                - Can reduce into single effect size
+                    + Could average effect sizes or..
+                    + Only include one and exclude others.
+                    + Randomely choose.
+                    + Should be able to justify and decide a priori
+        #. Mean Effect Size
+            * General formula for weighted mean effect size : 
+                $$\overbar{ES} = \frac{\sum(w_{i} ES_{i})}{\sum w_{i}}$$ {#eq:es_gen}
+                $$ES_{i} = \text{values on effect size statistic used }$$
+                $$w_{i} = \text{inverse variance weight for effect size } i$$ 
+        #. Confidence Intervals around the Mean Effect Size.
+            * Confidence intervals indicate the range within which the population mean is likely to be given observed data.
+                - E.g. if 95% confidence interval = [0.05, 0.49] around a mean effect size indicates a 95% prob that the population mean effect size is between these two values.
+                - If confidence interval does _not_ include 0, then it is statistically significant.
+            * Based on standard error of mean and critical value from $z$-distribution
+                - Standard error of the Effect size of the mean : 
+                $$ SE_{\overbar{ES}} = \sqrt{\frac{1}{\sum w_{i}}}$$ {#eq:se_es}
+                $$ w_{i} = \text{inverse variance weight of effect size } i$$
+                - To construct bounds of interval
+                $$ \overbar{ES}_{L} = \text{lower bound of } \overbar{ES} = \overbar{ES} - z_{1-\alpha}(SE_{ES}) $$ {#eq:es_l}
+                $$ \overbar{ES}_{U} = \text{upper bound of } \overbar{ES} = \overbar{ES} + z_{1-\alpha}(SE_{ES}) $$ {#eq:es_l}
+                $$ z_{1 - \alpha} = \text{critical value for $z$-distribution} $$
+                $$ z_{1 - \alpha} = \text{1.96 for } \alpha = 0.05, \text{ 2.58 for } \alpha = .01 $$
+                - $z_{1 - \alpha}$ is how many standard deviations away from the center. So 0.05 of the area under a Gaussian is excluded when $z_{1 - \alpha}$ = 1.96.
+        #. Homogeneity Analysis
+            * Important question : Do all effect sizes from all studies sample the same population?
+            * Dispersion of effect sizes should mimic sampling error of the sample subjects.
+            * The null hypothesis is that variability of effect sizes is larger than would be expected from sampling error.
+                - This would imply that there is a source of error unaccounted for.
+            * Homogeneity test based on $Q$ statistic
+                - Distributed as $\Chi^{2}$ with $k$ - 1 degrees of freedom, where $k$ is the number of effect sizes.
+                $$ Q = \sum w_{i} (ES_{i} - \overbar{ES})^{2}$$ {#eq:q}
+                $$ ES_{i} = \text{individual effect size for study } i$$
+                $$ \overbar{ES} = \text{weighted mean effect size}$$
+                $$ w_{i} = \text{individual weight for } ES_{i}$$
+                - If $Q$ exceeds the critical value for $\Chi^{2}$ with $k$ - 1 degrees of freedom, the the null hypothesis of homogeneity is rejected.
+                - Computationally simpler version of $Q$ : 
+                $$ Q = (\sum w_{i} ES^{2}_{i}) - \frac{(\sum w_{i} ES_{i})^{2}}{\sum w_{i}}$$ {#eq:q2}
+    #) Anaylysis of Heterogeneous Distributions of Effect Size
+        #. Preceding discussion is called \emph{fixed effects model}
+            * We are assuming all error comes from sampling error w/r/t underlying population distribution
+            * If there are a small number of studies and a small number of samples within each study, the $Q$ will not have much statistical power 
+            * \emph{fixed effects model} are inappropriate when we know or have strong belief that other things are effecting it, E.g.
+                - Experimental setup
+                - Studies aren't drawing from the same population.
+        #. Options for handling rejection of \emph{fixed effects model}
+            * Assume variability beyond subject-level sampling error is random. The differences derive from random error whose sources cannot be identified.
+                - Adopt \emph{random effects model}
+                    + Acts like a study level sampling error
+                    + See next section for more details
+            * Continue to assume fixed effects model but add assumption that variability beyond subject-level sampling error is systematic and identifiable between studies.
+                - Basis for studying changes in effect size based on study design, etc.
+            * Assume that variance beyond subject-level sampling error is derived partly from systematic, identifiable sources and partly from random sources.
+                - Use \emph{mixed effects model}
+        #. Random Effects Model
+            * Assumes that there is random component to variance
+            $$ \sigma^{2}_{tot} = \sigma^{2}_{\theta} + \sigma^{2}_{i} $$ {#eq:s_tot}
+            $$ \sigma^{2}_{tot} = \text{total variance} $$
+            $$ \sigma^{2}_{\theta} = \text{between studies variance} $$
+            $$ \sigma^{2}_{i} = \text{variance w/r/t subject sampling error} $$
+            * Use this new variance, $\sigma^{2}_{tot}$, to compute mean effect size, confidence interval, significance test, etc.
+            * Challenge to estimate $\sigma^{2}_{\theta}$. Two ways to do it:
+                - noniterative method based on method of moments
+                    $$ \sigma^{2}_{\theta} = \frac{Q - (k - 1)}{\sum w_{i} - (\sum w^{2}_{i} / \sum w_{i})}$$ {#eq:}
+                    + if $\sigma^{2}_{\theta} \leq 0$, $\sigma^{2}_{\theta}$ is set to 0 
+                - iterative method based on maximum likelihood.
+                    + not covered here
+        #. Fixed Effects Model : Partitioning Effect Size Variance 
+            * Basically group studies and conduct homogeneity test to see if it passes.
+                - Testing 'independant' variables.
+            * \bf{SKIPPED - not relevant for my numerical experiments}
+        #. Mixed Effects Model 
+            * \bf{SKIPPED - not relevant for my numerical experiments}
+    #) Analysis of Statisitcally Dependent Effect Sizes
+        #. Previous discussion assumed Statisitcal independence
+        #. When studies produce multiple quantities indicating the same thing, only select one to compute your effect sizes 
+        #. Imagine a matrix, where diagonal represent variance of effect sizes. Off diagonal represent covariance.
+            * Can change above formalism to use covariance instead of just variance.
+            * Useful when :
+                - studies have more than one experimental group of interest, but one single control group.
+            * Downer b/c need to know correlation between measures, which often isn't reported.
+    #) Additional Analysis Issues
+        #. Uneven reporting practices
+            * Vague or not enough information.
+        #. Missing Data
+                    
 
 Chapter 8 : Interpreting and Using Meta-Analysis Results
 ========================

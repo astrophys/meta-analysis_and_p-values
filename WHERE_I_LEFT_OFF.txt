@@ -9,6 +9,8 @@ To Do:
 6. compare t-scores from both methods
 7. Dynamically handle if stdev whether to use welch's or normal/paired t-test
 8. Work on writing up notes in a concise fashion.
+9. Compute effect size distribution when not homogenous
+10. Break up code into several options that can be run separately
 
 
 Talked with Bill:
