@@ -499,12 +499,12 @@ Chapter 6 : Analysis Issues and Strategies
             * The null hypothesis is that variability of effect sizes is larger than would be expected from sampling error.
                 - This would imply that there is a source of error unaccounted for.
             * Homogeneity test based on $Q$ statistic
-                - Distributed as $\Chi^{2}$ with $k$ - 1 degrees of freedom, where $k$ is the number of effect sizes.
+                - Distributed as $\chi^{2}$ with $k$ - 1 degrees of freedom, where $k$ is the number of effect sizes.
                 $$ Q = \sum w_{i} (ES_{i} - \overbar{ES})^{2}$$ {#eq:q}
                 $$ ES_{i} = \text{individual effect size for study } i$$
                 $$ \overbar{ES} = \text{weighted mean effect size}$$
                 $$ w_{i} = \text{individual weight for } ES_{i}$$
-                - If $Q$ exceeds the critical value for $\Chi^{2}$ with $k$ - 1 degrees of freedom, the the null hypothesis of homogeneity is rejected.
+                - If $Q$ exceeds the critical value for $\chi^{2}$ with $k$ - 1 degrees of freedom, the the null hypothesis of homogeneity is rejected.
                 - Computationally simpler version of $Q$ : 
                 $$ Q = (\sum w_{i} ES^{2}_{i}) - \frac{(\sum w_{i} ES_{i})^{2}}{\sum w_{i}}$$ {#eq:q2}
     #) Anaylysis of Heterogeneous Distributions of Effect Size
