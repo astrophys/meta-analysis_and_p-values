@@ -668,9 +668,6 @@ Questions
 
 To Do
 --------------
-1. Read Chapter 6 on homengeity test
-#. Read Chapter 3 on unstandardized mean gain
-#. Read p117(?) on confidence intervals.
 
 
 
