@@ -12,6 +12,19 @@ To Do:
 9. Compute effect size distribution when not homogenous
 10. Break up code into several options that can be run separately
 
+11. Create own meta-analysis experiment:
+    a) Create EXPERIMENT class, args = both population distributions and
+       how many to draw for control / treatment
+    b) Create effect_size()
+    c) Create confidence_interval()
+    d) Use standardized mean difference (Chapter 3). I think this is Cohen's d
+
+12. Given the info in Ch. 6 of practical meta-analysis, I don't understand how Smith and Iadarola (2015)
+    computed confidence interval. Their CI should be symmetric, but they are not. 
+    Revisit notes from meeting with Bill
+
+13. Add README.md to outline notes/comments/thoughts in this file.
+
 
 Talked with Bill:
 1. Talked to Bill, t-distribution is normal only when N-> large,
@@ -30,4 +43,6 @@ Question:
    --> Ask about student-t vs. welch-t
    Answer : as 500 experiments -> 10**6, the frac_p<0.5 welch's and equal tscores should converge.  This is b/c I'm estimating s1 and s2 in welchs_t_score
 2. Ask Bill why Cohen's d avoids sample size effects? \sigma_observed converges on \sigma_population and this is still a result of effect size
+
+
 
