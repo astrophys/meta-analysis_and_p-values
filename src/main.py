@@ -209,7 +209,8 @@ def main():
           "mu(p)", "std(p)", "frac<.05",
           "mu(tW)", "std(tW)", "frac>2",
           "mu(pW)", "std(pW)", "frac<.05"))
-    for nSamp in [3,5,10,15,20,30,40,50,75,100]:
+    #for nSamp in [3,5,10,15,20,30,40,50,75,100]:
+    for nSamp in [3,5,10,15,20,30,40]:
         ### Equal sample sizes, equal variance
         tL = np.zeros(nExp)
         pL = np.zeros(nExp)
@@ -237,10 +238,51 @@ def main():
               nSamp, np.mean(tL), np.std(tL), len(tL[np.abs(tL) > 2])/nExp,
               np.mean(pL), np.std(pL), len(pL[np.abs(pL) < 0.05])/nExp,
               np.mean(tWelchL), np.std(tWelchL), len(tWelchL[np.abs(tWelchL) > 2])/nExp,
-              np.mean(pWelchL), np.std(pWelchL), len(pWelchL[np.abs(pWelchL) < 0.05])/nExp)
+              np.mean(pWelchL), np.std(pWelchL), len(pWelchL[np.abs(pWelchL) < 0.05])/nExp))
 
-)
+    ### Let's now emulate the studies in Table 4 of
+    ### "Evidence Base Update for Autism Spectrum Disorder" by Smith and Iadarola ###
+    # first column is early intervertion, 2nd column is treatment as usual
+    studySizeLL=[[13,12], [31,12], [35,24], [12,22], [24,21], [177,117]]
+    esL = []        # List of effect sizes from studySizeLL
+    varL= []        # List of variances from studySizeLL, computed from pooled stdev, sp
+    for studyL in studySizeLL:
+        samp1V = pop1V[np.random.randint(low=0, high=N1, size=studyL[0])]
+        samp2V = pop2V[np.random.randint(low=0, high=N2, size=studyL[1])]
+        mean1  = np.mean(samp1V)
+        mean2  = np.mean(samp2V)
+        sd1    = np.std(samp1V)
+        sd2    = np.std(samp2V)
+        # pooled stdev. see eqn 3.20 in Lipsey & Wilson
+        var = (((studyL[0] - 1)*sd1**2 + (studyL[1] - 1)*sd2**2) /
+               ((studyL[0] - 1) + (studyL[1] - 1) ))
+        stdP  = np.sqrt(var)
+        # Standardized mean diff - Cohen's d (?)- eq 3.21 Lipsey & Wilson, eq 7 latex notes
+        es = (mean1 - mean2) / stdP   # Effect size
+        esL.append(es)
+        varL.append(var)
 
+    cIL = []        # Confidence interval for each studySizeLL
+    meanES = np.mean(esL)
+    stdES  = np.sqrt(1/sum(varL))   # Eqn 13 in latex., p114 in Lipsey & Wilson
+    z = 1.96        # Critical value for z-distribution, with alpha = 0.05
+    lower  = meanES - z*stdES       # Eqn 14 in latex
+    upper  = meanES + z*stdES       # Eqn 15 in latex
+    print("\n\n---------------------------------------------------------"
+          "-----------------------------------")
+    print("{:<10} {:<8} {:<8} {:<12} {:<8}\n".format("study",
+          "N_treat", "N_wt", "Effect_Size", "Var") )
+    for idx in range(len(studySizeLL)):
+        print("{:<10} {:<8} {:<8} {:<12.6f} {:<8.6f}".format("study_{}".format(idx),
+              studySizeLL[idx][0], studySizeLL[idx][1], esL[idx], varL[idx]))
+          
+    print("Total Effect Size = {:<10.6f}; 95% CI = [{:<10.6f}, {:<10.6f}]\n".format(meanES,
+         lower, upper))
+        
+    
+    
+
+    
 
 
 if __name__ == "__main__":

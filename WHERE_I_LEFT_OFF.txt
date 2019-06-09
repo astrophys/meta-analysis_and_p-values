@@ -24,6 +24,9 @@ To Do:
     Revisit notes from meeting with Bill
 
 13. Add README.md to outline notes/comments/thoughts in this file.
+14. NOTE!!! the confidence intervals reported in Smith are not the same 
+    confidence interals in Lipsey & Wilson. Their confidence intervals are fore the     
+    combinatino of multipe studies _not_ individual studies.
 
 
 Talked with Bill:
