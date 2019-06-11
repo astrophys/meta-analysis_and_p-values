@@ -9,11 +9,15 @@ So, I decided to look into this myself.
 
 ## Description
 I have no formal statistics training, so I took this as an opportunity to learn about p-values and meta-analysis.
-Within this repo you'll find
+Within this repo you'll find :
 
 1. My notes on Chapters 1,2,3,6 and 8 from [Practical Meta-Analysis by Lipsey and Wilson](https://psycnet.apa.org/record/2000-16602-000).
 See `notes/practical_meta_analysis.md`.
-2. A code that runs a series of experiments to help develop intuition on these topics.
+2. A code that runs a series of 'experiments' to help develop intuition on :
+    a) Standard deviation / standard error of the mean 
+    #) t-scores (incl. Student and Welchs' distribution)
+    #) p-values
+    #) meta-analysis
 
 
 ## Installation / Running
@@ -40,11 +44,15 @@ To run the simulation / numerical experiments :
 
 E.g.
 
-`python src/main.py 0 1 0 1` 
+```
+python src/main.py 0 1 0 1
+```
 
 To compile the notes on [Practical Meta-Analysis by Lipsey and Wilson](https://psycnet.apa.org/record/2000-16602-000) : 
 
-`pandoc --biblio=notes/meta-analysis_refs.bib -f markdown notes/practical_meta_analysis.md --filter pandoc-crossref -t latex -o notes/output.pdf`
+```
+pandoc --biblio=notes/meta-analysis_refs.bib -f markdown notes/practical_meta_analysis.md --filter pandoc-crossref -t latex -o notes/output.pdf
+```
 
 
 ## Discussion
@@ -53,28 +61,43 @@ This code does a series of experiments by drawing samples from these two underly
 The point is to generate some statistical intuition.
 Let's now discuss the various sections of the code.
 
-#### Section 1 : Standard error of the mean (a.k.a. standard error of the mean)
+### Section 1 : Standard error of the mean 
 Here we sample population 2 50 times per experiment.
-Each experiment is conducted N_exp = [20, 200, 2000, 20000, 50000, 100000] times.
+Each experiment is conducted `nExp = [20, 200, 2000, 20000, 50000, 100000]` times.
 We call each series of experiments a 'set'.
 So for the first set, there are 20 experiments where each experiment samples population 2 50 times.
+
 We compute 4 columns : 
-1. `mean_of_means` column : mean of the set using each experiment's mean 
-2. `std_of_means` column  : standard deviation of the set using each experiment's mean 
+1. `mean_sampdist` column : mean of the set using each experiment's mean 
+2. `std_sampdist` column  : standard deviation of the set using each experiment's mean 
 3. 'stdL[0]/sqrt(N)` column : standard deviation of first experiment divided by the sqrt(50) samples in the experiment
 4. 'mean(stdL/sqrt(N-1))` column : mean of all the sets standard deviations divided by the number of samples.
 
-Each set has its own variance and mean. 
-The variance of each set is (standard error of the mean) 
+Each set of experiments has its own variance and mean, this is called a "sampling distribution."
+Per Wikipedia's entry on ["Standard Error of the Mean"](https://en.wikipedia.org/wiki/Standard_error#Standard_error_of_the_mean), we can show mathematically that the variance of the sampling distribution is equal to the _population's_ variance divided by sample size of each experiment.
+
+```
+std_sampdist^2 = std_pop^2 / N  
+std_sampdist = std_pop / sqrt(N)
+# In our example, when nExp = 200 (with 50 samples per experiment) and Population 2's std = 1.0, std_sampdist = 0.1396 
+0.1396 ~ 1.0 / sqrt(50)
+0.1396 ~ 0.1414
+```
+
+So the important take away from the standard error of the mean provides us a method of estimating the population standard deviation / variance.  
+This is rather neat.
+
+FINISH : Flesh out discussion
 
 
-#### Section 2 : t-score using entire sample
+
+### Section 2 : t-score using entire sample
 
 
-#### Section 3 : Computing t-scores using Student's t-test and Welch's t-test
+### Section 3 : Computing t-scores using Student's t-test and Welch's t-test
 
 
-#### Section 4 : Computing Cohen's 'd' and a meta-analysis example.
+### Section 4 : Computing Cohen's 'd' and a meta-analysis example.
 
 
 

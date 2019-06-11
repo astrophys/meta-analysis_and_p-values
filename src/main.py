@@ -119,7 +119,7 @@ def main():
         pop2V[i] = random.gauss(pop2_mu, pop2_sd)
     print("\n---------------------------------------------------------")
     print("Population 1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
-          "Population 1 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(pop1_mu,pop1_sd,pop2_mu,pop2_sd))
+          "Population 2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(pop1_mu,pop1_sd,pop2_mu,pop2_sd))
 
     ### 
     #  Explore Standard deviation of the mean : \sigma / sqrt(N)
@@ -133,10 +133,13 @@ def main():
     print("\n\n---------------------------------------------------------")
     print("########## SECTION 1 ##########")
     print("# Testing Std. Dev. of Mean for Population 2.\n"
-          "# Pop2_mu = {:<.4f}\n# {} samples per experiment".format(
-          np.mean(pop2V),nSamp))
+          "# Pop2_mu = {:<.4f}\n# {} samples per experiment\n"
+          "# The variance of the sampling distribution should tend to the population variance \n"
+          "# divided by number of trials per experiment, i.e.\n"
+          "#    std_sampdist -> std_pop / sqrt({}) = {:<.5f}"
+          .format(np.mean(pop2V), nSamp, nSamp, np.std(pop2V)/np.sqrt(nSamp)))
     print("---------------------------------------------------------")
-    print("{:<10}{:<15}{:<15}{:<17}{:<15}".format("nExp", "mean_of_means", "std_of_means",
+    print("{:<10}{:<15}{:<15}{:<17}{:<15}".format("nExp", "mean_sampdist", "std_sampdist",
           "stdL[0]/sqrt(N)", "mean(stdL/sqrt(N-1))"))
     # Loop over number of experiments
     for nExp in nExpL:
@@ -156,7 +159,7 @@ def main():
         print("{:<10}{:<15.4f}{:<15.4f}{:<17.4f}{:<15.4f}".format(nExp,np.mean(experMeanL),
               np.std(experMeanL), experStdL[0] / np.sqrt(nSamp),
               np.mean(experStdL) / np.sqrt(nSamp-1)))
-    print("Notice that 'std_of_means' converges to 'mean(stdL/sqrt(N))', we'd \n"
+    print("Notice that 'std_sampdist' converges to 'mean(stdL/sqrt(N-1))', we'd \n"
           "     expect this if the standard deviation of the mean really is standard \n"
           "     dev of the distribution of means")
     
