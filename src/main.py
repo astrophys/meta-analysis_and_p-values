@@ -130,22 +130,25 @@ def main():
     # Draw 20 experiments, see if the means cluster with std. dev. of mean. Use dist. 2
     nSamp       = 50          # Number of samples in each experiment
     nExpL       = [20, 200, 2000, 20000, 50000, 100000]     # Number of experiments
-    #print("---------------------------------------------------------")
-    print("\n# Testing Std. Dev. of Mean for Population 2.\n"
-          "# Pop1_mu = {:<.4f}\n# {} samples per experiment".format(
+    print("\n\n---------------------------------------------------------")
+    print("########## SECTION 1 ##########")
+    print("# Testing Std. Dev. of Mean for Population 2.\n"
+          "# Pop2_mu = {:<.4f}\n# {} samples per experiment".format(
           np.mean(pop2V),nSamp))
     print("---------------------------------------------------------")
     print("{:<10}{:<15}{:<15}{:<17}{:<15}".format("nExp", "mean_of_means", "std_of_means",
-          "stdL[0]/sqrt(N)", "mean(stdL/sqrt(N))"))
+          "stdL[0]/sqrt(N)", "mean(stdL/sqrt(N-1))"))
+    # Loop over number of experiments
     for nExp in nExpL:
         experL = []               # Experiment list
         experMeanL = []
         experStdL = []
         for i in range(nExp):
-            idxL    = np.random.randint(low=0, high=N2, size=nSamp)
-            sampL   = pop2V[idxL]     # Samples drawn from dist 2.
+            idxL    = np.random.randint(low=0, high=N2, size=nSamp)  # random draw of indices 
+            sampL   = pop2V[idxL]                                    # Get Samples drawn from dist 2.
             mean    = np.mean(sampL)
             std     = np.std(sampL)
+            # Record mean, stdev for this experiment
             experMeanL.append(mean)
             experStdL.append(std)
             experL.append([mean,std])
@@ -180,6 +183,8 @@ def main():
     sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
     t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
     print("\n\n---------------------------------------------------------")
+    print("########## SECTION 2 ##########")
+    print("---------------------------------------------------------")
     print("t-score using entire distribution N1 {} and N2 {}".format(N1,N2))
     print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
           "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
@@ -193,7 +198,10 @@ def main():
     ### Let's now look at the distribution of t-scores ###
     #print("\n---------------------------------------------------------")
     nExp  = 500
-    print("\n# Running {} Experiments per each sample size. Computing stats "
+    print("\n---------------------------------------------------------"
+          "-----------------------------------")
+    print("########## SECTION 3 ##########")
+    print("# Running {} Experiments per each sample size. Computing stats "
           "over all {} Experiments".format(nExp, nExp))
     print("---------------------------------------------------------"
           "-----------------------------------")
@@ -270,7 +278,10 @@ def main():
     upper  = meanES + z*stdES       # Eqn 15 in latex
     print("\n\n---------------------------------------------------------"
           "-----------------------------------")
-    print("{:<10} {:<8} {:<8} {:<12} {:<8}\n".format("study",
+    print("########## SECTION 4 ##########")
+    print("---------------------------------------------------------"
+          "-----------------------------------")
+    print("{:<10} {:<8} {:<8} {:<12} {:<8}".format("study",
           "N_treat", "N_wt", "Effect_Size", "Var") )
     for idx in range(len(studySizeLL)):
         print("{:<10} {:<8} {:<8} {:<12.6f} {:<8.6f}".format("study_{}".format(idx),

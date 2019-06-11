@@ -3,7 +3,6 @@ Did:
 To Do:
 1. Plot the population distributions, matplotlib
 2. Compare with either python or R p-value calculators
-3. Now do in context of Cohen's d
 4. Write up latex description of this program.
 5. Make plots - check that hist is acutally normalized .... Needs fixed.
 6. compare t-scores from both methods
@@ -11,13 +10,6 @@ To Do:
 8. Work on writing up notes in a concise fashion.
 9. Compute effect size distribution when not homogenous
 10. Break up code into several options that can be run separately
-
-11. Create own meta-analysis experiment:
-    a) Create EXPERIMENT class, args = both population distributions and
-       how many to draw for control / treatment
-    b) Create effect_size()
-    c) Create confidence_interval()
-    d) Use standardized mean difference (Chapter 3). I think this is Cohen's d
 
 12. Given the info in Ch. 6 of practical meta-analysis, I don't understand how Smith and Iadarola (2015)
     computed confidence interval. Their CI should be symmetric, but they are not. 

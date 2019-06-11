@@ -1,7 +1,6 @@
 <!--
 Compile : 
-    pandoc - -biblio=notes/p-value_refs.bib -f markdown notes/practical_meta_analysis.md -t latex -o output.pdf
-    pandoc - -biblio=p-value_refs.bib -f markdown practical_meta_analysis.md - -filter pandoc-crossref -t latex -o output.pdf
+    pandoc --biblio=notes/meta-analysis_refs.bib -f markdown notes/practical_meta_analysis.md --filter pandoc-crossref -t latex -o notes/output.pdf
 
 Notes:
     1. http://lierdakil.github.io/pandoc-crossref/ 
