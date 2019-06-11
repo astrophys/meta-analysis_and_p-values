@@ -16,11 +16,8 @@ See `notes/practical_meta_analysis.md`.
 2. A code that runs a series of 'experiments' to help develop intuition on :
 
     a) Standard deviation / standard error of the mean 
-
     b) t-scores (incl. Student and Welchs' distribution)
-
     c) p-values
-
     d) meta-analysis
 
 
