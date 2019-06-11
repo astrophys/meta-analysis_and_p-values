@@ -5,14 +5,14 @@ In their paper they compare a variety of papers and used Cohen's 'd' as the metr
 They utilize 95% confidence intervals, but fail to describe how they compute either Cohen's 'd' or the confidence intervals.
 They state "When possible, we present results in terms of effect size (Cohen’s d) and 95% confidence intervals, as reported by the investigators or derived from Wilson’s (n.d.) effect size calculator, which uses formulas presented by [Lipsey and Wilson (2001)](https://psycnet.apa.org/record/2000-16602-000)"
 This is a very unsatisfying description of their work and they should provide the formula from which they work.  
-So I decided to look into this myself.
+So, I decided to look into this myself.
 
 ## Description
 I have no formal statistics training, so I took this as an opportunity to learn about p-values and meta-analysis.
 Within this repo you'll find
 
 1. My notes on Chapters 1,2,3,6 and 8 from [Practical Meta-Analysis by Lipsey and Wilson](https://psycnet.apa.org/record/2000-16602-000).
-See notes/practical_meta_analysis.md.
+See `notes/practical_meta_analysis.md`.
 2. A code that runs a series of experiments to help develop intuition on these topics.
 
 
@@ -28,15 +28,19 @@ All this was built on OSX 10.13.6 using Homebrew 2.1.0:
 
 #### Running
 To run the simulation / numerical experiments :
+
 `./src/main.py mu1 s1 mu2 s2
     mu1 : float, mean(population 1), assumed gaussian
     s1  : float, stdev(population 1)
     mu2 : float, mean(population 2), assumed gaussian
     s2  : float, stdev(population 2)`
+
 E.g.
+
 `python src/main.py 0 1 0 1` 
 
 To compile the notes on [Practical Meta-Analysis by Lipsey and Wilson](https://psycnet.apa.org/record/2000-16602-000) : 
+
 `pandoc --biblio=notes/meta-analysis_refs.bib -f markdown notes/practical_meta_analysis.md --filter pandoc-crossref -t latex -o notes/output.pdf`
 
 
