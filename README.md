@@ -29,11 +29,14 @@ All this was built on OSX 10.13.6 using Homebrew 2.1.0:
 #### Running
 To run the simulation / numerical experiments :
 
-`./src/main.py mu1 s1 mu2 s2
+```
+./src/main.py mu1 s1 mu2 s2
+
     mu1 : float, mean(population 1), assumed gaussian
     s1  : float, stdev(population 1)
     mu2 : float, mean(population 2), assumed gaussian
-    s2  : float, stdev(population 2)`
+    s2  : float, stdev(population 2)
+```
 
 E.g.
 
