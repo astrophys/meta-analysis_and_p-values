@@ -14,11 +14,10 @@ Within this repo you'll find :
 1. My notes on Chapters 1,2,3,6 and 8 from [Practical Meta-Analysis by Lipsey and Wilson](https://psycnet.apa.org/record/2000-16602-000).
 See `notes/practical_meta_analysis.md`.
 2. A code that runs a series of 'experiments' to help develop intuition on :
-
-    a) Standard deviation / standard error of the mean 
-    b) t-scores (incl. Student and Welchs' distribution)
-    c) p-values
-    d) meta-analysis
+    - Standard deviation / standard error of the mean 
+    - t-scores (incl. Student and Welchs' distribution)
+    - p-values
+    - meta-analysis
 
 
 ## Installation / Running
