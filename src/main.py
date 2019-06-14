@@ -177,23 +177,25 @@ def main():
     #t = (np.mean(pop2V) - mu1) / (sd2 / np.sqrt(N2))
     nSamp = N1
     #t=student_t_test_eq_samp_and_var(Pop1V=pop1V, Pop2V=pop2V, NSamp=nSamp)
-    samp1 = pop1V[np.random.randint(low=0, high=N1, size=nSamp)]
-    samp2 = pop2V[np.random.randint(low=0, high=N2, size=nSamp)]
+    samp1 = pop1V#[np.random.randint(low=0, high=N1, size=nSamp)]
+    samp2 = pop2V#[np.random.randint(low=0, high=N2, size=nSamp)]
     s1    = np.std(samp1)
     s2    = np.std(samp2)
     mu1   = np.mean(samp1)
     mu2   = np.mean(samp2)
     sp    = np.sqrt( (s1**2 + s2**2)/2.0) ### Pooled stdev
     t     = (mu1 - mu2) / (sp * np.sqrt(2.0 / nSamp))
-    print("\n\n---------------------------------------------------------")
-    print("########## SECTION 2 ##########")
-    print("---------------------------------------------------------")
-    print("t-score using entire distribution N1 {} and N2 {}".format(N1,N2))
-    print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
-          "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
-           pop1_mu, pop1_sd,pop2_mu, pop2_sd))
-    print("    Samp1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
-          "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
+    # Only print if 
+    if(abs(s1 - s2) / s1 < 10**-2 and N1 == N2):
+        print("\n\n---------------------------------------------------------")
+        print("########## SECTION 2 ##########")
+        print("---------------------------------------------------------")
+        print("t-score using entire distribution N1 {} and N2 {}".format(N1,N2))
+        print("t = {:<.3f}\n    Pop1  : [mu,sd] = [{:<.3f},{:<.3f}]\n"
+              "    Pop2  : [mu,sd] = [{:<.3f},{:<.3f}]".format(t,
+               pop1_mu, pop1_sd,pop2_mu, pop2_sd))
+        print("    Samp1 : [mu,sd] = [{:<.3f},{:<.3f}]\n"
+              "    Samp2 : [mu,sd] = [{:<.3f},{:<.3f}]\n".format(mu1,s1,mu2,s2))
     
 
 

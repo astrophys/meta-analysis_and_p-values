@@ -88,6 +88,11 @@ So the important take away from the standard error of the mean provides us a met
 This is rather neat.
 
 ### Section 2 : t-score using entire sample
+In this section we use the [Independent two-sample t-test](https://en.wikipedia.org/wiki/Student%27s_t-test).
+In order for this to work, the population distributions must have the same number of samples and standard deviation.
+Therefor for this section to run, these conditions must be met.
+
+
 
 
 ### Section 3 : Computing t-scores using Student's t-test and Welch's t-test
