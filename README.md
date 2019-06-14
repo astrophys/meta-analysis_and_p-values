@@ -70,8 +70,8 @@ So for the first set, there are 20 experiments where each experiment samples pop
 We compute 4 columns : 
 1. `mean_sampdist` column : mean of the set using each experiment's mean 
 2. `std_sampdist` column  : standard deviation of the set using each experiment's mean 
-3. 'stdL[0]/sqrt(N)` column : standard deviation of first experiment divided by the sqrt(50) samples in the experiment
-4. 'mean(stdL/sqrt(N-1))` column : mean of all the sets standard deviations divided by the number of samples.
+3. `stdL[0]/sqrt(N)` column : standard deviation of first experiment in the set divided by the sqrt(50) samples in the experiment. `N` = 50 samples per experiment.
+4. `mean(stdL/sqrt(N-1))` column : mean of all the sets standard deviations divided by the number of samples. `N` = 50 samples per experiment. This isn't particularly useful for intuition. It isn't surprising that this tends to `std_sampdist` b/c ultimately it is using the same underlying data.
 
 Each set of experiments has its own variance and mean, this is called a "sampling distribution."
 Per Wikipedia's entry on ["Standard Error of the Mean"](https://en.wikipedia.org/wiki/Standard_error#Standard_error_of_the_mean), we can show mathematically that the variance of the sampling distribution is equal to the _population's_ variance divided by sample size of each experiment.
@@ -86,10 +86,6 @@ std_sampdist = std_pop / sqrt(N)
 
 So the important take away from the standard error of the mean provides us a method of estimating the population standard deviation / variance.  
 This is rather neat.
-
-FINISH : Flesh out discussion
-
-
 
 ### Section 2 : t-score using entire sample
 
