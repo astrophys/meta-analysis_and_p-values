@@ -90,7 +90,16 @@ This is rather neat.
 ### Section 2 : t-score using entire sample
 In this section we use the [Independent two-sample t-test](https://en.wikipedia.org/wiki/Student%27s_t-test).
 In order for this to work, the population distributions must have the same number of samples and standard deviation.
-Therefor for this section to run, these conditions must be met.
+For this section to run, these conditions must be met.
+We compute the t-score using 
+```
+n = n_1 = n_2 = number of samples both in each population
+s_1=standard deviation of population 1
+s_2=standard deviation of population 2
+t= (mean_1 - mean_2) / (s_p * sqrt(2/n))
+s_p = sqrt((s_1**2 + s_2**2)/2)
+```
+In section 3 we use the t-score to get a p-value.
 
 
 
