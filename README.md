@@ -118,12 +118,29 @@ This means that when people do experiments with small sample sizes (i.e. less th
 
 
 ### Section 4 : Computing Cohen's 'd' and a meta-analysis example.
+Here I simulate a situation (i.e. same number of persons in the treatment and control groups for each expirement) similar to Table 4 in [Evidence Base Update for Autism Spectrum Disorder by Smith and Iadarola](https://doi.org/10.1080/15374416.2015.1077448).
+The goal is to understand what effect size (what they call Cohen's d) would be seen if you ran these experiments on the given populations.  
+Smith and Iadarola cite Practical Meta-Analysis by Lipsey and Wilson for their Cohen's d. 
+However they fail to give an exact equation (e.g. did they use the pooled standard deviation?) and they _fail_ to mention how they compute the confidence interval for each experiment.
+
+I took extensive notes on Lipsey and Wilson's book (see `notes/practical_meta_analysis.md`).
+I draw samples for the treatment and control groups and compute the pooled variance using equation 3.20 in Lipsey and Wilson, i.e. 
+```
+s_p = sqrt( ( (n_1 - 1) s_1**2 + (n_2 - 1)s_2**2 ) / ( (n_1 - 1) + (n_2 - 1)))
+```
+I then compute the effect size using Lipesy and Wilson's Standardized Mean Difference (equation 3.21) : 
+```
+Effect_size = Cohen's d = (mean_1 - mean_2) / s_p
+```
+I then compute confidence intervals accross experiments (i.e. using the effect sizes from all six experiments) as described on p114 of Lipsey and Wilson.
+Smith and Iadarola give confidence intervals for _each_ experiment and they aren't symmetric like Lipsey and Wilson's, so who knows what they actually did.
 
 
 
+<!---
 When running identical distributions (i.e. `python src/main.py 0 1 0 1`):
 
-<!---[Smith and Iadarola 2015][https://www.tandfonline.com/doi/abs/10.1080/15374416.2015.1077448]'s confidence intervals aren't necessarily symetric, which is confusing because on p114 of [Lipsey and Wilson (2001)][https://psycnet.apa.org/record/2000-16602-000] they describe computing the confidence interval utilizing the critical value of the z-distribution and simply doing `mean effect size +/- z_crit_value`.
+[Smith and Iadarola 2015][https://www.tandfonline.com/doi/abs/10.1080/15374416.2015.1077448]'s confidence intervals aren't necessarily symetric, which is confusing because on p114 of [Lipsey and Wilson (2001)][https://psycnet.apa.org/record/2000-16602-000] they describe computing the confidence interval utilizing the critical value of the z-distribution and simply doing `mean effect size +/- z_crit_value`.
 Using [Lipsey and Wilson (2001)][https://psycnet.apa.org/record/2000-16602-000] formulation of the confidence interval, it should be symmetric about the mean.
 It is not obvious from their -->
 
