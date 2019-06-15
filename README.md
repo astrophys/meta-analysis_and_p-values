@@ -102,9 +102,19 @@ s_p = sqrt((s_1**2 + s_2**2)/2)
 In section 3 we use the t-score to get a p-value.
 
 
-
-
 ### Section 3 : Computing t-scores using Student's t-test and Welch's t-test
+In this section we compare the convergence of Student's t-test (Independent two-sample t-test) and the [Welch's t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test). 
+Welch's t-test is used when the populations sampled unequally (i.e. `n_1` != `n_2`) and/or the variances are different (i.e. `s_1**2` != `s_2**2`)
+From these two different t-tests, we compute p-values using the [Student's probability distribution function (PDF)](https://en.wikipedia.org/wiki/Student%27s_t-distribution).
+See the `t_dist_pdf_at_x()` function.
+To get the p-value, we take the sum of the integrals of the Student's t PDF on the bounds `[-inf,t-score]` and `[t-score, +inf]`.
+
+We run a series of experiments computing the p-values using both t-score tests for various numbers of samples in an experiment (`nSamp = [3,5,10,15,20,30,40]`). 
+We use 500 experiments per set.
+To test our intuition of the number of false positives, we can run with the same population means and variances, and look for the number of false positives (i.e. p<0.05). 
+We'd expect that the fraction of false positives should be 0.05, but for `nSamp < 30`, there is is a higher fraction of false positives (see columns labeled `frac<0.05`)
+
+This means that when people do experiments with small sample sizes (i.e. less than 30 per group), and the underlying populations have the same mean (i.e. the treatment group is the same as the control group), there will likely be a higher number of false positive detections that the groups are statistically different.
 
 
 ### Section 4 : Computing Cohen's 'd' and a meta-analysis example.
